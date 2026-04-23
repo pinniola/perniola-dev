@@ -1,0 +1,81 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630" width="1200" height="630">
+  <defs>
+    <pattern id="grid" width="56" height="56" patternUnits="userSpaceOnUse">
+      <path d="M 56 0 L 0 0 0 56" fill="none" stroke="#F0E6CD" stroke-opacity="0.05" stroke-width="1"/>
+    </pattern>
+    <radialGradient id="glow" cx="50%" cy="0%" r="70%">
+      <stop offset="0%" stop-color="#7AA9C5" stop-opacity="0.14"/>
+      <stop offset="100%" stop-color="#7AA9C5" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+
+  <!-- Background layers -->
+  <rect width="1200" height="630" fill="#0B1322"/>
+  <rect width="1200" height="630" fill="url(#grid)"/>
+  <rect width="1200" height="630" fill="url(#glow)"/>
+
+  <!-- Inner frame -->
+  <rect x="60" y="60" width="1080" height="510" fill="none" stroke="#F0E6CD" stroke-opacity="0.16" stroke-width="1"/>
+
+  <!-- Corner crosshairs in accent (copper) -->
+  <g stroke="#D4B685" stroke-width="1.5" fill="none">
+    <line x1="36" y1="60" x2="84" y2="60"/><line x1="60" y1="36" x2="60" y2="84"/>
+    <line x1="1116" y1="60" x2="1164" y2="60"/><line x1="1140" y1="36" x2="1140" y2="84"/>
+    <line x1="36" y1="570" x2="84" y2="570"/><line x1="60" y1="546" x2="60" y2="594"/>
+    <line x1="1116" y1="570" x2="1164" y2="570"/><line x1="1140" y1="546" x2="1140" y2="594"/>
+  </g>
+
+  <!-- Top metadata -->
+  <text x="100" y="118"
+        font-family="'DejaVu Sans Mono', 'Courier New', monospace"
+        font-size="15" fill="#8F9AAC"
+        letter-spacing="4">A.00 — PROFESSIONAL IDENTITY</text>
+  <text x="1100" y="118"
+        text-anchor="end"
+        font-family="'DejaVu Sans Mono', 'Courier New', monospace"
+        font-size="15" fill="#8F9AAC"
+        letter-spacing="4">REV. 2026.04</text>
+
+  <!-- Top separator -->
+  <line x1="100" y1="148" x2="1100" y2="148" stroke="#F0E6CD" stroke-opacity="0.12" stroke-width="1" stroke-dasharray="3 4"/>
+
+  <!-- Name: FRANCESCO -->
+  <text x="600" y="288"
+        text-anchor="middle"
+        font-family="'DejaVu Serif', Georgia, serif"
+        font-size="96"
+        font-weight="400"
+        fill="#F0E6CD"
+        letter-spacing="-2">Francesco</text>
+
+  <!-- Name: Perniola (italic, accent) -->
+  <text x="600" y="392"
+        text-anchor="middle"
+        font-family="'DejaVu Serif', Georgia, serif"
+        font-size="100"
+        font-weight="400"
+        font-style="italic"
+        fill="#D4B685"
+        letter-spacing="-2">Perniola</text>
+
+  <!-- Role -->
+  <text x="600" y="460"
+        text-anchor="middle"
+        font-family="'DejaVu Sans Mono', 'Courier New', monospace"
+        font-size="16" fill="#8F9AAC"
+        letter-spacing="4">SENIOR SOFTWARE ENGINEER  ·  SOLUTION ARCHITECT  ·  AI ENGINEER</text>
+
+  <!-- Bottom separator -->
+  <line x1="100" y1="495" x2="1100" y2="495" stroke="#F0E6CD" stroke-opacity="0.12" stroke-width="1" stroke-dasharray="3 4"/>
+
+  <!-- Bottom metadata -->
+  <text x="100" y="525"
+        font-family="'DejaVu Sans Mono', 'Courier New', monospace"
+        font-size="13" fill="#5A6578"
+        letter-spacing="3.5">SCALE 1:1  ·  SHEET 01 OF 01  ·  TRL 6–9 · PRODUCTION</text>
+  <text x="1100" y="525"
+        text-anchor="end"
+        font-family="'DejaVu Sans Mono', 'Courier New', monospace"
+        font-size="13" fill="#5A6578"
+        letter-spacing="3.5">PERNIOLA.PAGES.DEV</text>
+</svg>
