@@ -936,6 +936,102 @@ input:focus-visible {
   margin-right: 0.8rem;
 }
 
+/* Mobile-only optimized reading layout for sections 02 and 03 */
+@media (max-width: 780px) {
+  /* §02 Expertise */
+  .expertise__grid {
+    border-left: none;
+    border-right: none;
+  }
+  .expertise__grid .exp-card[style] {
+    grid-column: auto !important;
+  }
+  .exp-card {
+    padding: 1.25rem 1rem;
+  }
+  .exp-card__num {
+    letter-spacing: 0.16em;
+    font-size: 0.62rem;
+    margin-bottom: 0.7rem;
+  }
+  .exp-card__title {
+    font-size: 1.2rem;
+    line-height: 1.24;
+  }
+  .exp-card__desc {
+    font-size: 0.93rem;
+    line-height: 1.55;
+    margin-bottom: 1rem;
+  }
+  .exp-card__list {
+    gap: 0.4rem;
+    margin-bottom: 0.95rem;
+  }
+  .exp-card__list li {
+    font-size: 0.88rem;
+    line-height: 1.52;
+    padding-left: 0.9rem;
+  }
+  .exp-card__meta {
+    letter-spacing: 0.14em;
+    font-size: 0.58rem;
+  }
+
+  /* §03 Signature Works */
+  .work {
+    gap: 0.7rem;
+    padding: 1.35rem 0;
+  }
+  .work__idx {
+    padding-left: 0;
+    padding-top: 0;
+    font-size: 0.63rem;
+    letter-spacing: 0.16em;
+  }
+  .work__idx strong {
+    display: inline;
+    margin-right: 0.35rem;
+    font-size: 0.67rem;
+  }
+  .work__title {
+    font-size: 1.18rem;
+    line-height: 1.25;
+    margin-bottom: 0.45rem;
+  }
+  .work__role {
+    font-size: 0.62rem;
+    letter-spacing: 0.14em;
+    margin-bottom: 0.65rem;
+  }
+  .work__desc {
+    font-size: 0.91rem;
+    line-height: 1.52;
+  }
+  .work__tech {
+    padding-top: 0.1rem;
+    padding-right: 0;
+  }
+  .work__tech-label {
+    margin-bottom: 0.45rem;
+    letter-spacing: 0.16em;
+  }
+  .work__tech-list {
+    gap: 0.35rem 0.45rem;
+    font-size: 0.8rem;
+  }
+  .work__tech-list span {
+    display: inline-block;
+    padding: 0.17rem 0.46rem;
+    border: 1px solid rgba(240, 230, 205, 0.12);
+    background: rgba(16, 27, 47, 0.34);
+    border-radius: 2px;
+  }
+  .work__tech-list span + span::before {
+    content: none;
+    margin-right: 0;
+  }
+}
+
 /* =========================================================================
    EXPERIENCE
    ========================================================================= */
@@ -2517,12 +2613,12 @@ body.blueprint-mode .blueprint-indicator {
       </div>
       <div class="contact__actions">
         <a class="contact__cta contact__cta--primary" href="mailto:pinniola@hotmail.it">
-          <span data-lang="it">Scrivimi</span>
-          <span data-lang="en">Send me an email</span>
+          <span data-lang="it">Contact Me</span>
+          <span data-lang="en">Contact Me</span>
         </a>
         <a class="contact__cta" href="mailto:pinniola@hotmail.it?subject=Richiesta%20call%20intro%20/%20Intro%20call%20request">
-          <span data-lang="it">Fissiamo una call</span>
-          <span data-lang="en">Book an intro call</span>
+          <span data-lang="it">Book a call</span>
+          <span data-lang="en">Book a call</span>
         </a>
       </div>
     </div>
