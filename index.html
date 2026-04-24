@@ -5,11 +5,12 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Francesco Perniola — Senior Software Engineer · Solution Architect · AI Engineer</title>
 <meta name="description" content="Francesco Perniola — Senior Software Engineer, Solution Architect e AI Engineer. Architetture di sistemi production-grade all'intersezione tra software, AI e infrastrutture distribuite.">
+<meta name="author" content="Francesco Perniola">
 
 <!-- Canonical URL: aggiorna dopo aver configurato il dominio finale -->
 <link rel="canonical" href="https://perniola.pages.dev/">
 
-<!-- Open Graph (LinkedIn, Facebook, Slack, Discord) -->
+<!-- Open Graph -->
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://perniola.pages.dev/">
 <meta property="og:site_name" content="Francesco Perniola">
@@ -27,7 +28,6 @@
 <meta name="twitter:title" content="Francesco Perniola — Senior Software Engineer · Solution Architect · AI Engineer">
 <meta name="twitter:description" content="Architetture di sistemi production-grade all'intersezione tra software, AI e infrastrutture distribuite.">
 <meta name="twitter:image" content="https://perniola.pages.dev/og-image.png">
-<meta name="twitter:image:alt" content="Francesco Perniola — Senior Software Engineer, Solution Architect, AI Engineer">
 
 <!-- Favicon -->
 <link rel="icon" type="image/svg+xml" href="favicon.svg">
@@ -35,37 +35,61 @@
 <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
 <meta name="theme-color" content="#0B1322">
 
+<!-- Fonts -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght,SOFT@0,9..144,300..900,0..100;1,9..144,300..900,0..100&family=Newsreader:ital,opsz,wght@0,6..72,300..700;1,6..72,300..700&family=JetBrains+Mono:ital,wght@0,300..700;1,300..700&display=swap" rel="stylesheet">
 
 <style>
-/* ====== DESIGN TOKENS ====== */
+/* =========================================================================
+   DESIGN TOKENS
+   ========================================================================= */
 :root {
+  /* Palette */
   --bg: #0B1322;
   --bg-elevated: #101B2F;
+  --bg-deep: #070C16;
   --fg: #F0E6CD;
   --fg-muted: #8F9AAC;
   --fg-subtle: #5A6578;
+  --fg-faint: #3A4354;
   --accent: #D4B685;
+  --accent-bright: #E8CFA0;
   --accent-dim: #8C7A58;
   --accent-cool: #7AA9C5;
+
+  /* Lines */
   --line-faint: rgba(240, 230, 205, 0.05);
   --line-subtle: rgba(240, 230, 205, 0.10);
   --line: rgba(240, 230, 205, 0.18);
   --line-strong: rgba(240, 230, 205, 0.32);
+  --line-accent: rgba(212, 182, 133, 0.40);
 
+  /* Fonts */
   --font-display: 'Fraunces', 'Iowan Old Style', Georgia, serif;
   --font-body: 'Newsreader', 'Iowan Old Style', Georgia, serif;
   --font-mono: 'JetBrains Mono', 'Menlo', 'Monaco', monospace;
 
+  /* Structure */
   --max-width: 1200px;
   --gutter: clamp(1.25rem, 4vw, 3rem);
+  --grid-unit: 56px;
+
+  /* Motion */
+  --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+  --ease-in-out: cubic-bezier(0.7, 0, 0.3, 1);
+  --ease-expressive: cubic-bezier(0.19, 1, 0.22, 1);
 }
 
-/* ====== RESET & BASE ====== */
+/* =========================================================================
+   RESET & BASE
+   ========================================================================= */
 *, *::before, *::after { box-sizing: border-box; }
-html { scroll-behavior: smooth; }
+html {
+  scroll-behavior: smooth;
+  font-feature-settings: "kern", "liga", "calt";
+  text-size-adjust: 100%;
+}
 body {
   margin: 0;
   background: var(--bg);
@@ -75,26 +99,43 @@ body {
   font-weight: 380;
   line-height: 1.7;
   letter-spacing: 0.005em;
+  font-feature-settings: "kern", "liga", "calt", "onum";
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-rendering: optimizeLegibility;
   overflow-x: hidden;
+  min-height: 100vh;
+  position: relative;
   background-image:
     linear-gradient(to right, var(--line-faint) 1px, transparent 1px),
     linear-gradient(to bottom, var(--line-faint) 1px, transparent 1px);
-  background-size: 56px 56px;
-  background-position: center center;
+  background-size: var(--grid-unit) var(--grid-unit);
 }
+/* Atmospheric radial glow at hero */
 body::before {
   content: "";
   position: fixed; inset: 0;
-  background: radial-gradient(ellipse 80% 60% at 50% 0%, rgba(122, 169, 197, 0.08), transparent 70%);
+  background:
+    radial-gradient(ellipse 80% 60% at 50% 0%, rgba(122, 169, 197, 0.08), transparent 70%),
+    radial-gradient(ellipse 40% 40% at var(--mouse-x, 50%) var(--mouse-y, 20%), rgba(212, 182, 133, 0.06), transparent 60%);
   pointer-events: none;
   z-index: 0;
+  transition: background 0.6s var(--ease-out);
+}
+/* Grain overlay — subtle film noise for premium feel */
+body::after {
+  content: "";
+  position: fixed; inset: 0;
+  pointer-events: none;
+  z-index: 100;
+  opacity: 0.035;
+  mix-blend-mode: overlay;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
 }
 
 a { color: inherit; text-decoration: none; }
 img, svg { display: block; max-width: 100%; }
+button { font: inherit; }
 
 h1, h2, h3, h4 {
   font-family: var(--font-display);
@@ -105,11 +146,81 @@ h1, h2, h3, h4 {
   font-variation-settings: "SOFT" 30;
 }
 
-/* ====== LANGUAGE TOGGLE ====== */
+/* Tabular numerals everywhere they matter */
+.mono, .num { font-feature-settings: "tnum", "kern"; }
+
+/* =========================================================================
+   LANGUAGE TOGGLE
+   ========================================================================= */
 html[data-lang="en"] [data-lang="it"] { display: none; }
 html[data-lang="it"] [data-lang="en"] { display: none; }
 
-/* ====== NAVIGATION ====== */
+/* =========================================================================
+   SCROLL PROGRESS (fixed top rail)
+   ========================================================================= */
+.scroll-progress {
+  position: fixed;
+  top: 0; left: 0;
+  height: 1px;
+  width: 0;
+  background: linear-gradient(90deg, transparent, var(--accent) 50%, var(--accent-bright));
+  z-index: 60;
+  transition: width 0.15s linear;
+  box-shadow: 0 0 12px rgba(212, 182, 133, 0.5);
+}
+
+/* =========================================================================
+   SECTION COUNTER (floating, right edge)
+   ========================================================================= */
+.section-counter {
+  position: fixed;
+  right: clamp(1rem, 2vw, 2rem);
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 40;
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  letter-spacing: 0.2em;
+  color: var(--fg-subtle);
+  display: flex;
+  flex-direction: column;
+  gap: 0.9rem;
+  opacity: 0;
+  transition: opacity 0.5s var(--ease-out);
+  pointer-events: none;
+}
+body.scrolled .section-counter { opacity: 1; }
+.section-counter a {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  pointer-events: auto;
+  color: var(--fg-faint);
+  transition: color 0.3s ease, transform 0.3s ease;
+}
+.section-counter a:hover { color: var(--fg); transform: translateX(-4px); }
+.section-counter a.active { color: var(--accent); }
+.section-counter .dot {
+  width: 14px; height: 1px;
+  background: currentColor;
+  transition: width 0.3s ease;
+}
+.section-counter a.active .dot { width: 28px; }
+.section-counter .label {
+  opacity: 0;
+  transform: translateX(6px);
+  transition: opacity 0.3s ease, transform 0.3s ease;
+}
+.section-counter a:hover .label,
+.section-counter a.active .label {
+  opacity: 1;
+  transform: none;
+}
+@media (max-width: 1100px) { .section-counter { display: none; } }
+
+/* =========================================================================
+   NAVIGATION
+   ========================================================================= */
 .nav {
   position: fixed;
   top: 0; left: 0; right: 0;
@@ -118,7 +229,9 @@ html[data-lang="it"] [data-lang="en"] { display: none; }
   display: flex;
   align-items: center;
   justify-content: space-between;
-  backdrop-filter: blur(14px);
+  gap: 1rem;
+  backdrop-filter: blur(18px) saturate(1.2);
+  -webkit-backdrop-filter: blur(18px) saturate(1.2);
   background: rgba(11, 19, 34, 0.72);
   border-bottom: 1px solid var(--line-faint);
   font-family: var(--font-mono);
@@ -126,7 +239,10 @@ html[data-lang="it"] [data-lang="en"] { display: none; }
   letter-spacing: 0.14em;
   text-transform: uppercase;
   color: var(--fg-muted);
+  transition: border-color 0.4s ease;
 }
+body.scrolled .nav { border-bottom-color: var(--line); }
+
 .nav__monogram {
   font-family: var(--font-display);
   font-size: 1.2rem;
@@ -134,12 +250,22 @@ html[data-lang="it"] [data-lang="en"] { display: none; }
   color: var(--fg);
   font-weight: 500;
   text-transform: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  cursor: pointer;
+  user-select: none;
 }
 .nav__monogram::after {
   content: "·";
-  margin-left: 0.5rem;
   color: var(--accent);
+  animation: pulseAccent 3s ease-in-out infinite;
 }
+@keyframes pulseAccent {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.35; }
+}
+
 .nav__links {
   display: flex;
   gap: 2rem;
@@ -155,28 +281,69 @@ html[data-lang="it"] [data-lang="en"] { display: none; }
   bottom: -6px; left: 0;
   width: 0; height: 1px;
   background: var(--accent);
-  transition: width 0.35s ease;
+  transition: width 0.35s var(--ease-out);
 }
-.nav__links a:hover::after { width: 100%; }
-@media (max-width: 820px) { .nav__links { display: none; } }
+.nav__links a:hover::after,
+.nav__links a.active::after { width: 100%; }
+.nav__links a.active { color: var(--fg); }
+@media (max-width: 900px) { .nav__links { display: none; } }
+
+.nav__right {
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+}
+
+.cmdk-trigger {
+  all: unset;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  padding: 0.45rem 0.75rem;
+  border: 1px solid var(--line);
+  border-radius: 2px;
+  cursor: pointer;
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  letter-spacing: 0.14em;
+  color: var(--fg-subtle);
+  transition: color 0.25s ease, border-color 0.25s ease, background 0.25s ease;
+  background: rgba(16, 27, 47, 0.4);
+}
+.cmdk-trigger:hover {
+  color: var(--fg);
+  border-color: var(--line-strong);
+  background: rgba(16, 27, 47, 0.8);
+}
+.cmdk-trigger kbd {
+  font-family: var(--font-mono);
+  font-size: 0.62rem;
+  letter-spacing: 0.08em;
+  padding: 0.12rem 0.35rem;
+  border: 1px solid var(--line);
+  border-radius: 2px;
+  background: rgba(0,0,0,0.3);
+  color: var(--fg-muted);
+}
+@media (max-width: 560px) { .cmdk-trigger .cmdk-trigger-text { display: none; } }
 
 .lang-toggle {
   display: inline-flex;
   align-items: center;
-  gap: 0.5rem;
-  padding: 0.35rem 0.5rem;
+  padding: 0.3rem;
   border: 1px solid var(--line);
   border-radius: 2px;
+  background: rgba(16, 27, 47, 0.4);
 }
 .lang-toggle button {
   all: unset;
   cursor: pointer;
-  padding: 0.15rem 0.5rem;
+  padding: 0.18rem 0.55rem;
   font-family: var(--font-mono);
-  font-size: 0.72rem;
+  font-size: 0.68rem;
   letter-spacing: 0.14em;
   color: var(--fg-subtle);
-  transition: color 0.25s ease;
+  transition: color 0.25s ease, background 0.25s ease;
   border-radius: 1px;
 }
 .lang-toggle button:hover { color: var(--fg-muted); }
@@ -186,7 +353,9 @@ html[data-lang="it"] [data-lang="en"] { display: none; }
   font-weight: 500;
 }
 
-/* ====== SHARED LAYOUT ====== */
+/* =========================================================================
+   SHARED LAYOUT
+   ========================================================================= */
 .container {
   max-width: var(--max-width);
   margin: 0 auto;
@@ -203,46 +372,66 @@ html[data-lang="it"] [data-lang="en"] { display: none; }
   display: flex;
   align-items: baseline;
   gap: 1.25rem;
-  margin-bottom: 3rem;
-  padding-bottom: 1rem;
+  margin-bottom: 3.5rem;
+  padding-bottom: 1.25rem;
   border-bottom: 1px solid var(--line);
 }
 .section__num {
   font-family: var(--font-mono);
   font-size: 0.78rem;
-  letter-spacing: 0.18em;
+  letter-spacing: 0.2em;
   color: var(--accent);
   flex-shrink: 0;
+  padding-top: 0.5rem;
 }
 .section__title {
   font-size: clamp(1.75rem, 3.3vw, 2.6rem);
   font-weight: 400;
   font-style: italic;
-  font-variation-settings: "SOFT" 50;
+  font-variation-settings: "SOFT" 60;
+  line-height: 1.1;
 }
 .section__meta {
   margin-left: auto;
   font-family: var(--font-mono);
   font-size: 0.7rem;
-  letter-spacing: 0.18em;
+  letter-spacing: 0.2em;
   color: var(--fg-subtle);
   text-transform: uppercase;
   white-space: nowrap;
+  padding-top: 0.5rem;
 }
 @media (max-width: 620px) {
   .section__head { flex-direction: column; align-items: flex-start; gap: 0.4rem; }
-  .section__meta { margin-left: 0; }
+  .section__meta { margin-left: 0; padding-top: 0; }
 }
 
-/* ====== HERO ====== */
+/* =========================================================================
+   HERO
+   ========================================================================= */
 .hero {
   min-height: 100vh;
-  padding: 8rem var(--gutter) 5rem;
+  padding: 9rem var(--gutter) 5rem;
   display: flex;
   flex-direction: column;
   justify-content: center;
   position: relative;
+  overflow: hidden;
 }
+/* Decorative corner drafting marks */
+.hero::before,
+.hero::after {
+  content: "";
+  position: absolute;
+  width: 1px;
+  background: var(--line);
+  top: 8rem; bottom: 4rem;
+  z-index: 0;
+}
+.hero::before { left: calc(var(--gutter) - 1px); }
+.hero::after { right: calc(var(--gutter) - 1px); }
+@media (max-width: 780px) { .hero::before, .hero::after { display: none; } }
+
 .hero__grid {
   max-width: var(--max-width);
   width: 100%;
@@ -251,10 +440,13 @@ html[data-lang="it"] [data-lang="en"] { display: none; }
   grid-template-columns: 1.1fr 1fr;
   gap: 4rem;
   align-items: center;
+  position: relative;
+  z-index: 1;
 }
 @media (max-width: 940px) {
   .hero__grid { grid-template-columns: 1fr; gap: 3rem; }
 }
+
 .hero__meta {
   font-family: var(--font-mono);
   font-size: 0.72rem;
@@ -263,80 +455,111 @@ html[data-lang="it"] [data-lang="en"] { display: none; }
   text-transform: uppercase;
   display: flex;
   flex-wrap: wrap;
-  gap: 1.5rem;
+  gap: 1.5rem 2rem;
   margin-bottom: 2.5rem;
+  align-items: center;
 }
 .hero__meta span::before {
-  content: "▸";
-  margin-right: 0.5rem;
+  content: "";
+  display: inline-block;
+  width: 6px; height: 6px;
+  background: var(--accent);
+  margin-right: 0.6rem;
+  transform: translateY(-1px);
+  vertical-align: middle;
+}
+.hero__meta .dot-live {
   color: var(--accent);
 }
+.hero__meta .dot-live::before {
+  background: var(--accent);
+  border-radius: 50%;
+  animation: blink 1.8s ease-in-out infinite;
+}
+@keyframes blink {
+  0%, 100% { opacity: 1; transform: translateY(-1px) scale(1); }
+  50% { opacity: 0.3; transform: translateY(-1px) scale(0.8); }
+}
+
 .hero__name {
-  font-size: clamp(2.8rem, 7vw, 5.2rem);
-  line-height: 0.98;
-  letter-spacing: -0.03em;
-  margin-bottom: 1rem;
+  font-size: clamp(2.8rem, 7.2vw, 5.4rem);
+  line-height: 0.96;
+  letter-spacing: -0.035em;
+  margin-bottom: 1.1rem;
   font-weight: 300;
-  font-variation-settings: "SOFT" 80;
+  font-variation-settings: "SOFT" 80, "opsz" 144;
 }
 .hero__name em {
   font-style: italic;
-  font-variation-settings: "SOFT" 100;
+  font-variation-settings: "SOFT" 100, "opsz" 144;
   color: var(--accent);
+  font-weight: 400;
 }
+
 .hero__role {
   font-family: var(--font-mono);
   font-size: 0.78rem;
   letter-spacing: 0.25em;
   color: var(--fg-muted);
   text-transform: uppercase;
-  margin-bottom: 2.5rem;
+  margin-bottom: 2.2rem;
   padding-bottom: 1.5rem;
   border-bottom: 1px solid var(--line);
-  max-width: 30rem;
-}
-.hero__role span {
-  display: inline-block;
+  max-width: 34rem;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.3rem 1.2rem;
 }
 .hero__role span + span::before {
   content: "·";
-  margin: 0 0.8rem;
+  margin-right: 1.2rem;
   color: var(--accent);
 }
+
 .hero__tagline {
   font-family: var(--font-display);
-  font-size: clamp(1.15rem, 1.9vw, 1.45rem);
+  font-size: clamp(1.2rem, 2vw, 1.5rem);
   font-weight: 300;
   font-style: italic;
-  font-variation-settings: "SOFT" 60;
-  line-height: 1.45;
+  font-variation-settings: "SOFT" 70;
+  line-height: 1.4;
   color: var(--fg);
-  max-width: 32rem;
+  max-width: 34rem;
   margin-bottom: 2.5rem;
 }
-.hero__scroll {
-  font-family: var(--font-mono);
-  font-size: 0.68rem;
-  letter-spacing: 0.25em;
-  color: var(--fg-subtle);
-  text-transform: uppercase;
-  display: inline-flex;
-  align-items: center;
-  gap: 0.75rem;
-}
-.hero__scroll::after {
-  content: "";
-  width: 40px; height: 1px;
-  background: var(--line-strong);
-  position: relative;
-  animation: scrollLine 2.4s ease-in-out infinite;
-}
-@keyframes scrollLine {
-  0%, 100% { transform: scaleX(0.6); opacity: 0.4; }
-  50% { transform: scaleX(1); opacity: 1; }
+.hero__tagline em {
+  color: var(--accent);
+  font-style: normal;
+  font-variation-settings: "SOFT" 100;
 }
 
-/* ====== HERO DIAGRAM (SVG) ====== */
+.hero__cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.85rem;
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  letter-spacing: 0.25em;
+  color: var(--fg-muted);
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: color 0.3s ease, gap 0.3s ease;
+}
+.hero__cta:hover { color: var(--fg); gap: 1.2rem; }
+.hero__cta::after {
+  content: "→";
+  font-size: 0.9rem;
+  color: var(--accent);
+  transition: transform 0.3s ease;
+}
+.hero__cta:hover::after { transform: translateX(4px); }
+
+/* =========================================================================
+   HERO DIAGRAM (interactive SVG)
+   ========================================================================= */
+.diagram-wrap {
+  position: relative;
+}
 .diagram {
   width: 100%;
   height: auto;
@@ -344,57 +567,38 @@ html[data-lang="it"] [data-lang="en"] { display: none; }
   font-size: 9px;
   letter-spacing: 0.1em;
   text-transform: uppercase;
+  max-height: 500px;
 }
-.diagram__frame {
-  fill: none;
-  stroke: var(--line);
-  stroke-width: 1;
-}
+.diagram__frame { fill: none; stroke: var(--line); stroke-width: 1; }
 .diagram__layer {
-  fill: none;
+  fill: transparent;
   stroke: var(--line-strong);
   stroke-width: 1;
+  cursor: pointer;
+  transition: fill 0.35s var(--ease-out), stroke 0.35s ease;
 }
-.diagram__layer--accent {
+.diagram__layer:hover,
+.diagram__layer.active {
+  fill: rgba(212, 182, 133, 0.08);
   stroke: var(--accent);
-  stroke-width: 1.2;
 }
-.diagram__fill {
-  fill: var(--bg-elevated);
-  stroke: var(--line);
-  stroke-width: 1;
+.diagram__layer--accent { stroke: var(--accent); stroke-width: 1.3; }
+.diagram__layer--accent:hover,
+.diagram__layer--accent.active {
+  fill: rgba(212, 182, 133, 0.12);
+  stroke: var(--accent-bright);
 }
-.diagram__line {
-  stroke: var(--line);
-  stroke-width: 1;
-  stroke-dasharray: 3 3;
-}
-.diagram__label {
-  fill: var(--fg);
-  font-weight: 500;
-  letter-spacing: 0.18em;
-}
+.diagram__line { stroke: var(--line); stroke-width: 1; stroke-dasharray: 3 3; }
+.diagram__label { fill: var(--fg); font-weight: 500; letter-spacing: 0.18em; pointer-events: none; }
 .diagram__label--accent { fill: var(--accent); }
-.diagram__tag {
-  fill: var(--fg-muted);
-  letter-spacing: 0.15em;
-}
-.diagram__meta {
-  fill: var(--fg-subtle);
-  font-size: 8px;
-  letter-spacing: 0.2em;
-}
-.diagram__mark {
-  fill: none;
-  stroke: var(--accent);
-  stroke-width: 1;
-}
+.diagram__tag { fill: var(--fg-muted); letter-spacing: 0.15em; pointer-events: none; }
+.diagram__meta { fill: var(--fg-subtle); font-size: 8px; letter-spacing: 0.2em; pointer-events: none; }
+.diagram__mark { fill: none; stroke: var(--accent); stroke-width: 1; }
 
-/* Diagram draw-in animation */
 .diagram [data-anim="stroke"] {
   stroke-dasharray: 1000;
   stroke-dashoffset: 1000;
-  animation: drawIn 1.6s ease-out forwards;
+  animation: drawIn 1.6s var(--ease-out) forwards;
 }
 .diagram [data-anim="fade"] {
   opacity: 0;
@@ -407,90 +611,145 @@ html[data-lang="it"] [data-lang="en"] { display: none; }
 .diagram [data-delay="5"] { animation-delay: 1.4s; }
 .diagram [data-delay="6"] { animation-delay: 1.7s; }
 .diagram [data-delay="7"] { animation-delay: 2.0s; }
+@keyframes drawIn { to { stroke-dashoffset: 0; } }
+@keyframes fadeIn { to { opacity: 1; } }
 
-@keyframes drawIn {
-  to { stroke-dashoffset: 0; }
-}
-@keyframes fadeIn {
-  to { opacity: 1; }
-}
-
-/* ====== CORNER MARKS ====== */
-.corner-marks { position: absolute; inset: 0; pointer-events: none; }
-.corner-marks::before,
-.corner-marks::after,
-.corner-marks > span {
+/* Detail panel that appears when diagram layer is hovered */
+.diagram-detail {
   position: absolute;
-  width: 14px; height: 14px;
+  top: 50%; left: 0;
+  transform: translate(-100%, -50%) translateX(-20px);
+  width: 240px;
+  padding: 1.25rem;
+  background: var(--bg-elevated);
   border: 1px solid var(--line);
+  border-left: 2px solid var(--accent);
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  letter-spacing: 0.1em;
+  line-height: 1.7;
+  color: var(--fg-muted);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s ease, transform 0.3s var(--ease-out);
 }
-.corner-marks::before {
-  top: 0; left: 0;
-  border-right: none; border-bottom: none;
+.diagram-detail.visible {
+  opacity: 1;
+  transform: translate(-100%, -50%) translateX(-12px);
 }
-.corner-marks::after {
-  top: 0; right: 0;
-  border-left: none; border-bottom: none;
+.diagram-detail h4 {
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  color: var(--accent);
+  letter-spacing: 0.22em;
+  margin-bottom: 0.5rem;
+  font-weight: 500;
 }
-.corner-marks .bl {
-  bottom: 0; left: 0;
-  border-right: none; border-top: none;
-}
-.corner-marks .br {
-  bottom: 0; right: 0;
-  border-left: none; border-top: none;
-}
+.diagram-detail p { margin: 0; font-size: 0.72rem; color: var(--fg); letter-spacing: 0.05em; line-height: 1.55; text-transform: none; }
+@media (max-width: 1100px) { .diagram-detail { display: none; } }
 
-/* ====== PROFILE ====== */
+/* =========================================================================
+   PROFILE & STATS
+   ========================================================================= */
 .profile {
   display: grid;
-  grid-template-columns: minmax(0, 68ch) 1fr;
-  gap: 3rem;
+  grid-template-columns: minmax(0, 62ch) 1fr;
+  gap: 4rem;
   align-items: start;
 }
-@media (max-width: 780px) { .profile { grid-template-columns: 1fr; } }
+@media (max-width: 860px) { .profile { grid-template-columns: 1fr; gap: 2.5rem; } }
+
 .profile p {
-  font-size: 1.15rem;
+  font-size: 1.17rem;
   line-height: 1.75;
   margin: 0 0 1.3rem;
+  color: var(--fg);
 }
 .profile p:first-child::first-letter {
   font-family: var(--font-display);
-  font-size: 3.8em;
+  font-size: 4em;
   float: left;
   line-height: 0.85;
-  padding: 0.12em 0.12em 0 0;
+  padding: 0.12em 0.14em 0 0;
   color: var(--accent);
   font-weight: 300;
   font-variation-settings: "SOFT" 100;
 }
+
 .profile__aside {
   font-family: var(--font-mono);
   font-size: 0.78rem;
-  letter-spacing: 0.14em;
+  letter-spacing: 0.12em;
   color: var(--fg-muted);
   border-left: 1px solid var(--line);
-  padding-left: 1.5rem;
+  padding-left: 1.75rem;
 }
 .profile__aside dt {
   color: var(--accent);
-  font-size: 0.68rem;
-  letter-spacing: 0.22em;
+  font-size: 0.66rem;
+  letter-spacing: 0.24em;
   text-transform: uppercase;
   margin-bottom: 0.35rem;
-  margin-top: 1.25rem;
+  margin-top: 1.4rem;
 }
 .profile__aside dt:first-child { margin-top: 0; }
 .profile__aside dd {
   margin: 0;
   color: var(--fg);
   font-family: var(--font-body);
-  font-size: 0.95rem;
+  font-size: 0.98rem;
   letter-spacing: 0;
+  line-height: 1.55;
+}
+
+/* Stats strip */
+.stats {
+  margin-top: 4rem;
+  padding: 2rem 0 0;
+  border-top: 1px solid var(--line);
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1px;
+  background: var(--line-subtle);
+  border-bottom: 1px solid var(--line);
+}
+@media (max-width: 720px) { .stats { grid-template-columns: repeat(2, 1fr); } }
+.stat {
+  background: var(--bg);
+  padding: 1.5rem 1.25rem 1.8rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+  transition: background 0.4s ease;
+}
+.stat:hover { background: var(--bg-elevated); }
+.stat__num {
+  font-family: var(--font-display);
+  font-size: clamp(2rem, 4vw, 3rem);
+  font-weight: 300;
+  color: var(--fg);
+  line-height: 1;
+  letter-spacing: -0.03em;
+  font-variation-settings: "SOFT" 50, "opsz" 144;
+  font-feature-settings: "tnum";
+}
+.stat__num em {
+  font-style: italic;
+  color: var(--accent);
+  font-variation-settings: "SOFT" 100, "opsz" 144;
+}
+.stat__label {
+  font-family: var(--font-mono);
+  font-size: 0.66rem;
+  letter-spacing: 0.22em;
+  color: var(--fg-subtle);
+  text-transform: uppercase;
   line-height: 1.5;
 }
 
-/* ====== EXPERTISE ====== */
+/* =========================================================================
+   EXPERTISE — expanded cards
+   ========================================================================= */
 .expertise__grid {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
@@ -498,60 +757,186 @@ html[data-lang="it"] [data-lang="en"] { display: none; }
   background: var(--line);
   border: 1px solid var(--line);
 }
-@media (max-width: 780px) { .expertise__grid { grid-template-columns: 1fr; } }
-.expertise__card {
+@media (max-width: 860px) { .expertise__grid { grid-template-columns: 1fr; } }
+.exp-card {
   background: var(--bg);
-  padding: 2rem 1.8rem;
+  padding: 2.2rem 1.9rem;
   position: relative;
-  transition: background 0.35s ease;
+  display: flex;
+  flex-direction: column;
+  transition: background 0.45s ease;
+  overflow: hidden;
 }
-.expertise__card:hover {
-  background: var(--bg-elevated);
-}
-.expertise__card::before {
+.exp-card:hover { background: var(--bg-elevated); }
+.exp-card::before {
   content: "";
   position: absolute;
   top: 0; left: 0;
   width: 0; height: 2px;
   background: var(--accent);
-  transition: width 0.5s ease;
+  transition: width 0.6s var(--ease-out);
 }
-.expertise__card:hover::before { width: 100%; }
-.expertise__num {
+.exp-card:hover::before { width: 100%; }
+/* Corner ticks on each card */
+.exp-card::after {
+  content: "";
+  position: absolute;
+  top: 12px; right: 12px;
+  width: 10px; height: 10px;
+  border-top: 1px solid var(--line);
+  border-right: 1px solid var(--line);
+  transition: border-color 0.4s ease;
+}
+.exp-card:hover::after { border-color: var(--accent); }
+
+.exp-card__num {
   font-family: var(--font-mono);
-  font-size: 0.68rem;
-  letter-spacing: 0.22em;
+  font-size: 0.66rem;
+  letter-spacing: 0.24em;
   color: var(--accent);
-  margin-bottom: 0.9rem;
+  margin-bottom: 1rem;
+  text-transform: uppercase;
 }
-.expertise__title {
-  font-size: 1.35rem;
+.exp-card__title {
+  font-size: 1.45rem;
   font-family: var(--font-display);
   font-weight: 400;
   font-variation-settings: "SOFT" 40;
   letter-spacing: -0.01em;
-  line-height: 1.25;
-  margin-bottom: 0.9rem;
+  line-height: 1.2;
+  margin-bottom: 0.8rem;
 }
-.expertise__title em {
+.exp-card__title em {
   font-style: italic;
   color: var(--accent);
-  font-variation-settings: "SOFT" 80;
+  font-variation-settings: "SOFT" 90;
 }
-.expertise__desc {
+.exp-card__desc {
   color: var(--fg-muted);
   font-size: 0.98rem;
   line-height: 1.6;
-  margin: 0;
+  margin: 0 0 1.4rem;
+}
+.exp-card__list {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 1.25rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.55rem;
+}
+.exp-card__list li {
+  font-family: var(--font-body);
+  font-size: 0.92rem;
+  line-height: 1.55;
+  color: var(--fg);
+  padding-left: 1.1rem;
+  position: relative;
+}
+.exp-card__list li::before {
+  content: "";
+  position: absolute;
+  left: 0; top: 0.65em;
+  width: 0.55rem; height: 1px;
+  background: var(--accent-dim);
+}
+.exp-card__meta {
+  margin-top: auto;
+  padding-top: 1rem;
+  border-top: 1px dashed var(--line);
+  font-family: var(--font-mono);
+  font-size: 0.64rem;
+  letter-spacing: 0.2em;
+  color: var(--fg-subtle);
+  text-transform: uppercase;
 }
 
-/* ====== EXPERIENCE ====== */
+/* =========================================================================
+   SIGNATURE WORKS
+   ========================================================================= */
+.works { display: flex; flex-direction: column; gap: 1px; background: var(--line-subtle); border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); }
+.work {
+  background: var(--bg);
+  padding: 2.5rem 0;
+  display: grid;
+  grid-template-columns: 140px 1fr 1fr;
+  gap: 2rem;
+  align-items: start;
+  transition: background 0.45s ease;
+  position: relative;
+}
+.work:hover { background: var(--bg-elevated); }
+@media (max-width: 900px) {
+  .work { grid-template-columns: 1fr; gap: 1rem; padding: 2rem 0; }
+}
+.work__idx {
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  letter-spacing: 0.2em;
+  color: var(--accent);
+  text-transform: uppercase;
+  padding-top: 0.35rem;
+  padding-left: 1rem;
+}
+.work__idx strong { display: block; color: var(--fg); font-weight: 500; font-size: 0.72rem; }
+.work__title {
+  font-size: 1.55rem;
+  font-family: var(--font-display);
+  font-weight: 400;
+  font-variation-settings: "SOFT" 40;
+  letter-spacing: -0.015em;
+  line-height: 1.2;
+  margin-bottom: 0.6rem;
+}
+.work__role {
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  letter-spacing: 0.2em;
+  color: var(--accent-dim);
+  text-transform: uppercase;
+  margin-bottom: 0.9rem;
+}
+.work__desc {
+  color: var(--fg-muted);
+  font-size: 0.98rem;
+  line-height: 1.65;
+  margin: 0;
+}
+.work__tech {
+  padding-right: 1rem;
+  padding-top: 0.3rem;
+}
+.work__tech-label {
+  font-family: var(--font-mono);
+  font-size: 0.62rem;
+  letter-spacing: 0.22em;
+  color: var(--fg-subtle);
+  text-transform: uppercase;
+  margin-bottom: 0.6rem;
+}
+.work__tech-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.3rem 0.8rem;
+  font-size: 0.9rem;
+  color: var(--fg);
+  font-family: var(--font-body);
+}
+.work__tech-list span + span::before {
+  content: "·";
+  color: var(--accent-dim);
+  margin-right: 0.8rem;
+}
+
+/* =========================================================================
+   EXPERIENCE
+   ========================================================================= */
 .experience { display: flex; flex-direction: column; gap: 3.5rem; }
 .job {
   display: grid;
-  grid-template-columns: 180px 1fr;
+  grid-template-columns: 200px 1fr;
   gap: 2.5rem;
-  padding-top: 2rem;
+  padding-top: 2.5rem;
   border-top: 1px solid var(--line);
 }
 @media (max-width: 780px) { .job { grid-template-columns: 1fr; gap: 1rem; } }
@@ -566,26 +951,28 @@ html[data-lang="it"] [data-lang="en"] { display: none; }
 .job__company {
   font-family: var(--font-display);
   font-style: italic;
-  font-size: 0.9rem;
+  font-size: 0.92rem;
   color: var(--fg-muted);
   display: block;
   margin-top: 0.3rem;
   font-variation-settings: "SOFT" 80;
   letter-spacing: 0;
+  text-transform: none;
 }
 .job__title {
-  font-size: 1.7rem;
+  font-size: 1.75rem;
   font-weight: 400;
   font-family: var(--font-display);
   letter-spacing: -0.015em;
   line-height: 1.2;
   margin-bottom: 0.4rem;
-  font-variation-settings: "SOFT" 30;
+  font-variation-settings: "SOFT" 40;
 }
+.job__title em { color: var(--accent); font-style: italic; font-variation-settings: "SOFT" 80; }
 .job__role {
   font-family: var(--font-mono);
-  font-size: 0.75rem;
-  letter-spacing: 0.18em;
+  font-size: 0.72rem;
+  letter-spacing: 0.2em;
   color: var(--accent-dim);
   text-transform: uppercase;
   margin-bottom: 1.5rem;
@@ -609,67 +996,88 @@ html[data-lang="it"] [data-lang="en"] { display: none; }
   background: var(--accent);
 }
 
-/* ====== STACK ====== */
-.stack { display: flex; flex-direction: column; gap: 2rem; }
+/* =========================================================================
+   STACK
+   ========================================================================= */
+.stack { display: flex; flex-direction: column; gap: 0; }
 .stack__row {
   display: grid;
-  grid-template-columns: 200px 1fr;
+  grid-template-columns: 220px 1fr;
   gap: 2rem;
-  padding-bottom: 1.75rem;
+  padding: 1.75rem 0;
   border-bottom: 1px dashed var(--line);
   align-items: baseline;
 }
+.stack__row:first-child { padding-top: 0.5rem; }
 .stack__row:last-child { border-bottom: none; }
-@media (max-width: 680px) { .stack__row { grid-template-columns: 1fr; gap: 0.5rem; } }
+@media (max-width: 680px) { .stack__row { grid-template-columns: 1fr; gap: 0.6rem; } }
 .stack__label {
   font-family: var(--font-mono);
   font-size: 0.72rem;
-  letter-spacing: 0.2em;
+  letter-spacing: 0.22em;
   color: var(--accent);
   text-transform: uppercase;
 }
 .stack__tags {
   display: flex;
   flex-wrap: wrap;
-  gap: 0.4rem 1.1rem;
+  gap: 0.5rem 1.3rem;
+  align-items: baseline;
 }
-.stack__tags span {
+.stack__tags .tech {
   font-family: var(--font-body);
   font-size: 1.02rem;
   color: var(--fg);
   position: relative;
+  transition: color 0.25s ease;
+  cursor: default;
 }
-.stack__tags span + span::before {
+.stack__tags .tech:hover { color: var(--accent); }
+.stack__tags .tech + .tech::before {
   content: "·";
   position: absolute;
-  left: -0.7rem; top: 0;
+  left: -0.85rem; top: 0;
   color: var(--fg-subtle);
 }
+.stack__tags .tech sup {
+  font-family: var(--font-mono);
+  font-size: 0.55rem;
+  color: var(--accent-dim);
+  letter-spacing: 0.1em;
+  margin-left: 0.25rem;
+  font-feature-settings: "tnum";
+  position: relative;
+  top: -0.4em;
+}
 
-/* ====== PATTERNS ====== */
+/* =========================================================================
+   PATTERNS
+   ========================================================================= */
 .patterns {
   display: flex;
   flex-wrap: wrap;
-  gap: 0.7rem;
-}
-.patterns span {
+  align-items: center;
+  gap: 0.5rem 0;
   font-family: var(--font-display);
   font-style: italic;
-  font-size: 1.5rem;
+  font-size: clamp(1.3rem, 2.4vw, 1.7rem);
   font-weight: 300;
-  padding: 0.4rem 0;
   font-variation-settings: "SOFT" 100;
   color: var(--fg);
-  line-height: 1.2;
+  line-height: 1.5;
 }
 .patterns span + span::before {
   content: "/";
-  margin: 0 1rem;
+  margin: 0 1.2rem;
   color: var(--accent);
   font-style: normal;
+  font-variation-settings: "SOFT" 0;
+  font-weight: 300;
 }
 
-/* ====== EDUCATION ====== */
+/* =========================================================================
+   EDUCATION
+   ========================================================================= */
 .edu-grid {
   display: grid;
   grid-template-columns: 1.4fr 1fr;
@@ -677,7 +1085,7 @@ html[data-lang="it"] [data-lang="en"] { display: none; }
 }
 @media (max-width: 780px) { .edu-grid { grid-template-columns: 1fr; gap: 2rem; } }
 .edu__item {
-  padding: 1.3rem 0 1.5rem;
+  padding: 1.4rem 0 1.6rem;
   border-bottom: 1px solid var(--line);
 }
 .edu__item:last-child { border-bottom: none; }
@@ -690,11 +1098,12 @@ html[data-lang="it"] [data-lang="en"] { display: none; }
 }
 .edu__title {
   font-family: var(--font-display);
-  font-size: 1.25rem;
+  font-size: 1.3rem;
   font-weight: 400;
   letter-spacing: -0.01em;
   margin-bottom: 0.3rem;
   font-variation-settings: "SOFT" 40;
+  line-height: 1.25;
 }
 .edu__detail {
   color: var(--fg-muted);
@@ -702,75 +1111,87 @@ html[data-lang="it"] [data-lang="en"] { display: none; }
   line-height: 1.55;
 }
 .edu__detail em { color: var(--accent); font-style: italic; }
-
 .langs {
   font-family: var(--font-mono);
-  font-size: 0.88rem;
-  letter-spacing: 0.1em;
+  font-size: 0.86rem;
+  letter-spacing: 0.08em;
   line-height: 2.2;
   color: var(--fg-muted);
 }
-.langs strong {
-  color: var(--fg);
-  font-weight: 500;
-  margin-right: 0.8rem;
-}
+.langs strong { color: var(--fg); font-weight: 500; margin-right: 0.8rem; font-family: var(--font-body); font-size: 1rem; }
 
-/* ====== CONTACT ====== */
-.contact {
-  padding: 4rem 0 6rem;
-}
+/* =========================================================================
+   CONTACT
+   ========================================================================= */
+.contact { padding: 4rem 0 6rem; }
 .contact__inner {
   border: 1px solid var(--line);
   padding: clamp(2.5rem, 6vw, 5rem);
   position: relative;
 }
-.contact__inner .corner-marks::before,
-.contact__inner .corner-marks::after,
-.contact__inner .corner-marks > span {
-  width: 10px; height: 10px;
-  border-color: var(--accent);
+.contact__inner::before,
+.contact__inner::after,
+.contact__inner .corner-bl,
+.contact__inner .corner-br {
+  content: "";
+  position: absolute;
+  width: 12px; height: 12px;
+  border: 1px solid var(--accent);
+}
+.contact__inner::before { top: -1px; left: -1px; border-right: none; border-bottom: none; }
+.contact__inner::after { top: -1px; right: -1px; border-left: none; border-bottom: none; }
+.contact__inner .corner-bl { bottom: -1px; left: -1px; border-right: none; border-top: none; }
+.contact__inner .corner-br { bottom: -1px; right: -1px; border-left: none; border-top: none; }
+
+.contact__num {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  letter-spacing: 0.24em;
+  color: var(--accent);
+  text-transform: uppercase;
+  margin-bottom: 1.5rem;
+  display: block;
 }
 .contact__headline {
   font-family: var(--font-display);
-  font-size: clamp(2rem, 4.5vw, 3.8rem);
+  font-size: clamp(2rem, 4.8vw, 3.8rem);
   font-weight: 300;
   font-style: italic;
-  line-height: 1.1;
-  letter-spacing: -0.025em;
+  line-height: 1.08;
+  letter-spacing: -0.028em;
   margin: 0 0 2.5rem;
-  font-variation-settings: "SOFT" 90;
+  font-variation-settings: "SOFT" 90, "opsz" 144;
 }
 .contact__headline em {
   color: var(--accent);
   font-style: normal;
   font-weight: 400;
+  font-variation-settings: "SOFT" 30, "opsz" 144;
 }
 .contact__list {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-  gap: 1.5rem 3rem;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 1.75rem 3rem;
 }
-.contact__row {
-  display: flex;
-  flex-direction: column;
-  gap: 0.35rem;
-}
+.contact__row { display: flex; flex-direction: column; gap: 0.4rem; }
 .contact__label {
   font-family: var(--font-mono);
-  font-size: 0.66rem;
-  letter-spacing: 0.24em;
+  font-size: 0.64rem;
+  letter-spacing: 0.26em;
   color: var(--accent);
   text-transform: uppercase;
 }
 .contact__value {
-  font-size: 1.1rem;
+  font-size: 1.12rem;
   color: var(--fg);
   transition: color 0.25s ease;
+  font-family: var(--font-body);
 }
 a.contact__value:hover { color: var(--accent); }
 
-/* ====== FOOTER ====== */
+/* =========================================================================
+   FOOTER
+   ========================================================================= */
 .footer {
   border-top: 1px solid var(--line);
   padding: 2.5rem var(--gutter);
@@ -778,7 +1199,7 @@ a.contact__value:hover { color: var(--accent); }
   grid-template-columns: 1fr 1fr 1fr;
   gap: 2rem;
   font-family: var(--font-mono);
-  font-size: 0.68rem;
+  font-size: 0.66rem;
   letter-spacing: 0.18em;
   color: var(--fg-subtle);
   text-transform: uppercase;
@@ -789,16 +1210,220 @@ a.contact__value:hover { color: var(--accent); }
 .footer > div:nth-child(3) { text-align: right; }
 @media (max-width: 680px) {
   .footer { grid-template-columns: 1fr; text-align: left !important; }
-  .footer > div:nth-child(2),
-  .footer > div:nth-child(3) { text-align: left; }
+  .footer > div:nth-child(2), .footer > div:nth-child(3) { text-align: left; }
 }
-.footer span { color: var(--fg-muted); }
 
-/* ====== SCROLL REVEALS ====== */
+/* =========================================================================
+   COMMAND PALETTE
+   ========================================================================= */
+.cmdk-backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 200;
+  display: none;
+  align-items: flex-start;
+  justify-content: center;
+  padding-top: 18vh;
+  background: rgba(7, 12, 22, 0.72);
+  backdrop-filter: blur(18px) saturate(1.4);
+  -webkit-backdrop-filter: blur(18px) saturate(1.4);
+  animation: cmdkBackdrop 0.25s var(--ease-out);
+}
+.cmdk-backdrop.open { display: flex; }
+@keyframes cmdkBackdrop {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+.cmdk {
+  width: min(560px, calc(100vw - 2rem));
+  background: var(--bg-elevated);
+  border: 1px solid var(--line-strong);
+  box-shadow: 0 40px 80px rgba(0,0,0,0.5), 0 0 0 1px rgba(212, 182, 133, 0.08);
+  animation: cmdkEnter 0.3s var(--ease-out);
+  position: relative;
+}
+.cmdk::before, .cmdk::after {
+  content: "";
+  position: absolute;
+  width: 10px; height: 10px;
+  border: 1px solid var(--accent);
+}
+.cmdk::before { top: -1px; left: -1px; border-right: none; border-bottom: none; }
+.cmdk::after { top: -1px; right: -1px; border-left: none; border-bottom: none; }
+@keyframes cmdkEnter {
+  from { opacity: 0; transform: translateY(-12px) scale(0.98); }
+  to { opacity: 1; transform: none; }
+}
+.cmdk__header {
+  padding: 1.2rem 1.5rem;
+  border-bottom: 1px solid var(--line);
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+.cmdk__prompt {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  letter-spacing: 0.2em;
+  color: var(--accent);
+}
+.cmdk__input {
+  flex: 1;
+  all: unset;
+  font-family: var(--font-body);
+  font-size: 1.05rem;
+  color: var(--fg);
+  caret-color: var(--accent);
+}
+.cmdk__input::placeholder { color: var(--fg-subtle); }
+.cmdk__esc {
+  font-family: var(--font-mono);
+  font-size: 0.6rem;
+  letter-spacing: 0.14em;
+  padding: 0.2rem 0.4rem;
+  border: 1px solid var(--line);
+  color: var(--fg-muted);
+  border-radius: 2px;
+}
+.cmdk__list {
+  max-height: 380px;
+  overflow-y: auto;
+  padding: 0.75rem 0;
+}
+.cmdk__list::-webkit-scrollbar { width: 6px; }
+.cmdk__list::-webkit-scrollbar-thumb { background: var(--line); border-radius: 3px; }
+.cmdk__group-label {
+  font-family: var(--font-mono);
+  font-size: 0.6rem;
+  letter-spacing: 0.24em;
+  color: var(--fg-subtle);
+  text-transform: uppercase;
+  padding: 0.6rem 1.5rem 0.45rem;
+}
+.cmdk__item {
+  padding: 0.7rem 1.5rem;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  cursor: pointer;
+  transition: background 0.15s ease;
+  border-left: 2px solid transparent;
+}
+.cmdk__item:hover,
+.cmdk__item.selected {
+  background: rgba(212, 182, 133, 0.08);
+  border-left-color: var(--accent);
+}
+.cmdk__icon {
+  width: 20px;
+  color: var(--accent);
+  font-family: var(--font-mono);
+  font-size: 0.85rem;
+  text-align: center;
+  flex-shrink: 0;
+}
+.cmdk__title {
+  flex: 1;
+  font-family: var(--font-body);
+  font-size: 0.98rem;
+  color: var(--fg);
+}
+.cmdk__hint {
+  font-family: var(--font-mono);
+  font-size: 0.62rem;
+  letter-spacing: 0.14em;
+  color: var(--fg-subtle);
+  padding: 0.18rem 0.45rem;
+  border: 1px solid var(--line);
+  border-radius: 2px;
+}
+.cmdk__footer {
+  border-top: 1px solid var(--line);
+  padding: 0.75rem 1.5rem;
+  display: flex;
+  justify-content: space-between;
+  font-family: var(--font-mono);
+  font-size: 0.6rem;
+  letter-spacing: 0.14em;
+  color: var(--fg-subtle);
+  text-transform: uppercase;
+}
+.cmdk__footer kbd {
+  font-family: var(--font-mono);
+  background: rgba(0,0,0,0.3);
+  border: 1px solid var(--line);
+  padding: 0.1rem 0.3rem;
+  border-radius: 2px;
+  margin: 0 0.25rem;
+}
+
+/* =========================================================================
+   BLUEPRINT MODE (Konami code easter egg)
+   ========================================================================= */
+body.blueprint-mode {
+  background-size: 28px 28px;
+}
+body.blueprint-mode::before {
+  background:
+    repeating-linear-gradient(0deg, rgba(122, 169, 197, 0.5) 0, rgba(122, 169, 197, 0.5) 1px, transparent 1px, transparent 28px),
+    repeating-linear-gradient(90deg, rgba(122, 169, 197, 0.5) 0, rgba(122, 169, 197, 0.5) 1px, transparent 1px, transparent 28px),
+    radial-gradient(ellipse 80% 60% at 50% 0%, rgba(122, 169, 197, 0.2), transparent 70%);
+  mix-blend-mode: screen;
+}
+.blueprint-indicator {
+  position: fixed;
+  top: 5rem; right: var(--gutter);
+  z-index: 70;
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  letter-spacing: 0.24em;
+  color: var(--accent);
+  text-transform: uppercase;
+  background: var(--bg);
+  border: 1px solid var(--accent);
+  padding: 0.6rem 1rem;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s ease;
+}
+body.blueprint-mode .blueprint-indicator {
+  opacity: 1;
+  animation: bpBlink 1s ease-in-out infinite;
+}
+@keyframes bpBlink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.5; }
+}
+
+/* =========================================================================
+   TOAST (for copy-to-clipboard feedback)
+   ========================================================================= */
+.toast {
+  position: fixed;
+  bottom: 2rem; left: 50%;
+  transform: translateX(-50%) translateY(20px);
+  z-index: 300;
+  padding: 0.75rem 1.25rem;
+  background: var(--bg-elevated);
+  border: 1px solid var(--accent);
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  letter-spacing: 0.14em;
+  color: var(--fg);
+  text-transform: uppercase;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s ease, transform 0.3s var(--ease-out);
+}
+.toast.visible { opacity: 1; transform: translateX(-50%) translateY(0); }
+
+/* =========================================================================
+   SCROLL REVEAL
+   ========================================================================= */
 .reveal {
   opacity: 0;
-  transform: translateY(24px);
-  transition: opacity 0.9s ease-out, transform 0.9s cubic-bezier(0.19, 1, 0.22, 1);
+  transform: translateY(28px);
+  transition: opacity 0.9s ease-out, transform 0.9s var(--ease-expressive);
 }
 .reveal.in { opacity: 1; transform: none; }
 @media (prefers-reduced-motion: reduce) {
@@ -809,27 +1434,56 @@ a.contact__value:hover { color: var(--accent); }
   html { scroll-behavior: auto; }
 }
 
-/* ====== SELECTION ====== */
+/* Selection */
 ::selection { background: var(--accent); color: var(--bg); }
+::-moz-selection { background: var(--accent); color: var(--bg); }
 </style>
 </head>
 <body>
 
+<!-- Scroll progress rail -->
+<div class="scroll-progress" id="scrollProgress"></div>
+
+<!-- Blueprint mode indicator (hidden until Konami code) -->
+<div class="blueprint-indicator">
+  <span data-lang="it">▸ Blueprint Mode attivo</span>
+  <span data-lang="en">▸ Blueprint Mode engaged</span>
+</div>
+
 <!-- ================= NAVIGATION ================= -->
 <nav class="nav">
-  <a href="#top" class="nav__monogram">FP</a>
+  <a href="#top" class="nav__monogram" aria-label="Home">FP</a>
   <div class="nav__links">
-    <a href="#about"><span data-lang="it">Profilo</span><span data-lang="en">Profile</span></a>
-    <a href="#expertise"><span data-lang="it">Competenze</span><span data-lang="en">Expertise</span></a>
-    <a href="#experience"><span data-lang="it">Esperienza</span><span data-lang="en">Experience</span></a>
-    <a href="#stack">Stack</a>
-    <a href="#contact"><span data-lang="it">Contatti</span><span data-lang="en">Contact</span></a>
+    <a href="#about" data-nav="about"><span data-lang="it">Profilo</span><span data-lang="en">Profile</span></a>
+    <a href="#expertise" data-nav="expertise"><span data-lang="it">Competenze</span><span data-lang="en">Expertise</span></a>
+    <a href="#works" data-nav="works"><span data-lang="it">Opere</span><span data-lang="en">Works</span></a>
+    <a href="#experience" data-nav="experience"><span data-lang="it">Esperienza</span><span data-lang="en">Experience</span></a>
+    <a href="#stack" data-nav="stack">Stack</a>
+    <a href="#contact" data-nav="contact"><span data-lang="it">Contatti</span><span data-lang="en">Contact</span></a>
   </div>
-  <div class="lang-toggle" role="group" aria-label="Language">
-    <button type="button" data-lang-btn="it" class="active">IT</button>
-    <button type="button" data-lang-btn="en">EN</button>
+  <div class="nav__right">
+    <button class="cmdk-trigger" id="cmdkTrigger" aria-label="Open command palette">
+      <span class="cmdk-trigger-text" data-lang="it">Comandi</span>
+      <span class="cmdk-trigger-text" data-lang="en">Commands</span>
+      <kbd>⌘K</kbd>
+    </button>
+    <div class="lang-toggle" role="group" aria-label="Language">
+      <button type="button" data-lang-btn="it" class="active">IT</button>
+      <button type="button" data-lang-btn="en">EN</button>
+    </div>
   </div>
 </nav>
+
+<!-- ================= SECTION COUNTER (floating) ================= -->
+<div class="section-counter" aria-hidden="true">
+  <a href="#top" data-counter="top"><span class="label">§00</span><span class="dot"></span></a>
+  <a href="#about" data-counter="about"><span class="label">§01</span><span class="dot"></span></a>
+  <a href="#expertise" data-counter="expertise"><span class="label">§02</span><span class="dot"></span></a>
+  <a href="#works" data-counter="works"><span class="label">§03</span><span class="dot"></span></a>
+  <a href="#experience" data-counter="experience"><span class="label">§04</span><span class="dot"></span></a>
+  <a href="#stack" data-counter="stack"><span class="label">§05</span><span class="dot"></span></a>
+  <a href="#contact" data-counter="contact"><span class="label">§06</span><span class="dot"></span></a>
+</div>
 
 <!-- ================= HERO ================= -->
 <section class="hero" id="top">
@@ -838,7 +1492,8 @@ a.contact__value:hover { color: var(--accent); }
       <div class="hero__meta">
         <span>Santeramo in Colle · IT</span>
         <span>EST. 1989</span>
-        <span>REV. 2026</span>
+        <span class="dot-live" data-lang="it">Disponibile per progetti selezionati</span>
+        <span class="dot-live" data-lang="en">Available for selected projects</span>
       </div>
       <h1 class="hero__name">
         Francesco<br>
@@ -848,82 +1503,103 @@ a.contact__value:hover { color: var(--accent); }
         <span>Senior Software Engineer</span><span>Solution Architect</span><span>AI Engineer</span>
       </div>
       <p class="hero__tagline">
-        <span data-lang="it">Costruisco sistemi software di produzione all'intersezione tra ingegneria, intelligenza artificiale e infrastrutture distribuite — dove l'architettura incontra la materia reale del codice.</span>
-        <span data-lang="en">I build production software systems at the intersection of engineering, artificial intelligence, and distributed infrastructure — where architecture meets the real substance of code.</span>
+        <span data-lang="it">Progetto <em>architetture</em> e scrivo <em>codice</em>. Porto sistemi in produzione reale — dove software, AI e infrastrutture distribuite devono vivere come una cosa sola.</span>
+        <span data-lang="en">I design <em>architectures</em> and write <em>code</em>. I ship systems to real production — where software, AI, and distributed infrastructure must live as one thing.</span>
       </p>
-      <a href="#about" class="hero__scroll">
-        <span data-lang="it">Scorri per iniziare</span>
-        <span data-lang="en">Scroll to begin</span>
+      <a href="#about" class="hero__cta">
+        <span data-lang="it">Esplora il sistema</span>
+        <span data-lang="en">Explore the system</span>
       </a>
     </div>
 
-    <!-- ARCHITECTURE DIAGRAM -->
-    <svg class="diagram" viewBox="0 0 520 440" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-      <!-- Frame border -->
-      <rect class="diagram__frame" x="10" y="10" width="500" height="420" data-anim="stroke" data-delay="1"/>
+    <!-- ARCHITECTURE DIAGRAM (interactive) -->
+    <div class="diagram-wrap">
+      <svg class="diagram" viewBox="0 0 520 440" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+        <rect class="diagram__frame" x="10" y="10" width="500" height="420" data-anim="stroke" data-delay="1"/>
+        <text class="diagram__meta" x="22" y="32" data-anim="fade" data-delay="1">A.00 — SYSTEM SCHEMATIC</text>
+        <text class="diagram__meta" x="22" y="46" data-anim="fade" data-delay="1">PERSONAL ARCHITECTURE</text>
+        <text class="diagram__meta" text-anchor="end" x="498" y="32" data-anim="fade" data-delay="1">SCALE 1:1</text>
+        <text class="diagram__meta" text-anchor="end" x="498" y="46" data-anim="fade" data-delay="1">REV. 2026.04</text>
+        <line class="diagram__line" x1="10" y1="58" x2="510" y2="58" data-anim="stroke" data-delay="2"/>
 
-      <!-- Title block top-left -->
-      <text class="diagram__meta" x="22" y="32" data-anim="fade" data-delay="1">A.00 — SYSTEM SCHEMATIC</text>
-      <text class="diagram__meta" x="22" y="46" data-anim="fade" data-delay="1">PERSONAL ARCHITECTURE</text>
+        <!-- L.04 INTELLIGENCE -->
+        <g data-layer="intelligence">
+          <rect class="diagram__layer diagram__layer--accent" x="30" y="78" width="460" height="64" data-anim="stroke" data-delay="2"/>
+          <text class="diagram__label diagram__label--accent" x="45" y="108">INTELLIGENCE</text>
+          <text class="diagram__tag" x="45" y="128">LLM · RAG · AGENTS · COMPUTER VISION</text>
+          <text class="diagram__meta" text-anchor="end" x="478" y="108" data-anim="fade" data-delay="3">L.04</text>
+        </g>
 
-      <!-- Title block top-right -->
-      <text class="diagram__meta" text-anchor="end" x="498" y="32" data-anim="fade" data-delay="1">SCALE 1:1</text>
-      <text class="diagram__meta" text-anchor="end" x="498" y="46" data-anim="fade" data-delay="1">REV. 2026.04</text>
+        <!-- L.03 APPLICATION -->
+        <g data-layer="application">
+          <rect class="diagram__layer" x="30" y="156" width="460" height="64" data-anim="stroke" data-delay="3"/>
+          <text class="diagram__label" x="45" y="186">APPLICATION</text>
+          <text class="diagram__tag" x="45" y="206">NESTJS · REACT · DJANGO · REACT NATIVE</text>
+          <text class="diagram__meta" text-anchor="end" x="478" y="186" data-anim="fade" data-delay="4">L.03</text>
+        </g>
 
-      <!-- Inner separator -->
-      <line class="diagram__line" x1="10" y1="58" x2="510" y2="58" data-anim="stroke" data-delay="2"/>
+        <!-- L.02 DATA -->
+        <g data-layer="data">
+          <rect class="diagram__layer" x="30" y="234" width="460" height="64" data-anim="stroke" data-delay="4"/>
+          <text class="diagram__label" x="45" y="264">DATA</text>
+          <text class="diagram__tag" x="45" y="284">POSTGRESQL · TIMESCALEDB · REDIS · MQTT</text>
+          <text class="diagram__meta" text-anchor="end" x="478" y="264" data-anim="fade" data-delay="5">L.02</text>
+        </g>
 
-      <!-- Layer 1: Intelligence -->
-      <rect class="diagram__layer diagram__layer--accent" x="30" y="78" width="460" height="64" data-anim="stroke" data-delay="2"/>
-      <text class="diagram__label diagram__label--accent" x="45" y="108">INTELLIGENCE</text>
-      <text class="diagram__tag" x="45" y="128">LLM · RAG · AGENTS · COMPUTER VISION</text>
-      <text class="diagram__meta" text-anchor="end" x="478" y="108" data-anim="fade" data-delay="3">L.04</text>
+        <!-- L.01 INFRASTRUCTURE -->
+        <g data-layer="infrastructure">
+          <rect class="diagram__layer" x="30" y="312" width="460" height="64" data-anim="stroke" data-delay="5"/>
+          <text class="diagram__label" x="45" y="342">INFRASTRUCTURE</text>
+          <text class="diagram__tag" x="45" y="362">DOCKER · KUBERNETES · CI/CD · ON-PREM</text>
+          <text class="diagram__meta" text-anchor="end" x="478" y="342" data-anim="fade" data-delay="6">L.01</text>
+        </g>
 
-      <!-- Layer 2: Application -->
-      <rect class="diagram__layer" x="30" y="156" width="460" height="64" data-anim="stroke" data-delay="3"/>
-      <text class="diagram__label" x="45" y="186">APPLICATION</text>
-      <text class="diagram__tag" x="45" y="206">NESTJS · REACT · DJANGO · REACT NATIVE</text>
-      <text class="diagram__meta" text-anchor="end" x="478" y="186" data-anim="fade" data-delay="4">L.03</text>
+        <!-- Connectors -->
+        <line class="diagram__line" x1="150" y1="142" x2="150" y2="156" data-anim="stroke" data-delay="3"/>
+        <line class="diagram__line" x1="150" y1="220" x2="150" y2="234" data-anim="stroke" data-delay="4"/>
+        <line class="diagram__line" x1="150" y1="298" x2="150" y2="312" data-anim="stroke" data-delay="5"/>
+        <line class="diagram__line" x1="370" y1="142" x2="370" y2="156" data-anim="stroke" data-delay="3"/>
+        <line class="diagram__line" x1="370" y1="220" x2="370" y2="234" data-anim="stroke" data-delay="4"/>
+        <line class="diagram__line" x1="370" y1="298" x2="370" y2="312" data-anim="stroke" data-delay="5"/>
 
-      <!-- Layer 3: Data -->
-      <rect class="diagram__layer" x="30" y="234" width="460" height="64" data-anim="stroke" data-delay="4"/>
-      <text class="diagram__label" x="45" y="264">DATA</text>
-      <text class="diagram__tag" x="45" y="284">POSTGRESQL · TIMESCALEDB · REDIS · MQTT</text>
-      <text class="diagram__meta" text-anchor="end" x="478" y="264" data-anim="fade" data-delay="5">L.02</text>
+        <!-- Bottom title block -->
+        <line class="diagram__line" x1="10" y1="395" x2="510" y2="395" data-anim="stroke" data-delay="6"/>
+        <text class="diagram__meta" x="22" y="415" data-anim="fade" data-delay="7">DRAWN BY F.PERNIOLA</text>
+        <text class="diagram__meta" text-anchor="middle" x="260" y="415" data-anim="fade" data-delay="7">TRL 6–9 · PRODUCTION</text>
+        <text class="diagram__meta" text-anchor="end" x="498" y="415" data-anim="fade" data-delay="7">SHEET 01 OF 01</text>
 
-      <!-- Layer 4: Infrastructure -->
-      <rect class="diagram__layer" x="30" y="312" width="460" height="64" data-anim="stroke" data-delay="5"/>
-      <text class="diagram__label" x="45" y="342">INFRASTRUCTURE</text>
-      <text class="diagram__tag" x="45" y="362">DOCKER · KUBERNETES · CI/CD · ON-PREM</text>
-      <text class="diagram__meta" text-anchor="end" x="478" y="342" data-anim="fade" data-delay="6">L.01</text>
+        <!-- Corner crosshairs -->
+        <g class="diagram__mark" data-anim="fade" data-delay="7">
+          <line x1="0" y1="10" x2="20" y2="10"/><line x1="10" y1="0" x2="10" y2="20"/>
+          <line x1="500" y1="10" x2="520" y2="10"/><line x1="510" y1="0" x2="510" y2="20"/>
+          <line x1="0" y1="430" x2="20" y2="430"/><line x1="10" y1="420" x2="10" y2="440"/>
+          <line x1="500" y1="430" x2="520" y2="430"/><line x1="510" y1="420" x2="510" y2="440"/>
+        </g>
+      </svg>
 
-      <!-- Vertical connector lines -->
-      <line class="diagram__line" x1="150" y1="142" x2="150" y2="156" data-anim="stroke" data-delay="3"/>
-      <line class="diagram__line" x1="150" y1="220" x2="150" y2="234" data-anim="stroke" data-delay="4"/>
-      <line class="diagram__line" x1="150" y1="298" x2="150" y2="312" data-anim="stroke" data-delay="5"/>
-
-      <line class="diagram__line" x1="370" y1="142" x2="370" y2="156" data-anim="stroke" data-delay="3"/>
-      <line class="diagram__line" x1="370" y1="220" x2="370" y2="234" data-anim="stroke" data-delay="4"/>
-      <line class="diagram__line" x1="370" y1="298" x2="370" y2="312" data-anim="stroke" data-delay="5"/>
-
-      <!-- Bottom title block -->
-      <line class="diagram__line" x1="10" y1="395" x2="510" y2="395" data-anim="stroke" data-delay="6"/>
-      <text class="diagram__meta" x="22" y="415" data-anim="fade" data-delay="7">DRAWN BY F.PERNIOLA</text>
-      <text class="diagram__meta" text-anchor="middle" x="260" y="415" data-anim="fade" data-delay="7">TRL 6–9 · PRODUCTION</text>
-      <text class="diagram__meta" text-anchor="end" x="498" y="415" data-anim="fade" data-delay="7">SHEET 01 OF 01</text>
-
-      <!-- Corner crosshair marks -->
-      <g class="diagram__mark" data-anim="fade" data-delay="7">
-        <line x1="0" y1="10" x2="20" y2="10"/>
-        <line x1="10" y1="0" x2="10" y2="20"/>
-        <line x1="500" y1="10" x2="520" y2="10"/>
-        <line x1="510" y1="0" x2="510" y2="20"/>
-        <line x1="0" y1="430" x2="20" y2="430"/>
-        <line x1="10" y1="420" x2="10" y2="440"/>
-        <line x1="500" y1="430" x2="520" y2="430"/>
-        <line x1="510" y1="420" x2="510" y2="440"/>
-      </g>
-    </svg>
+      <!-- Hover detail panels -->
+      <div class="diagram-detail" id="dd-intelligence">
+        <h4 data-lang="it">L.04 INTELLIGENCE</h4>
+        <h4 data-lang="en">L.04 INTELLIGENCE</h4>
+        <p data-lang="it">Feature LLM production-grade — RAG, agenti, chatbot domain-specific — consegnate ai clienti. In parallelo, reti neurali R&amp;D per medical imaging e computer vision industriale.</p>
+        <p data-lang="en">Production-grade LLM features — RAG, agents, domain-specific chatbots — embedded in client products. In parallel, R&amp;D neural networks for medical imaging and industrial computer vision.</p>
+      </div>
+      <div class="diagram-detail" id="dd-application">
+        <h4>L.03 APPLICATION</h4>
+        <p data-lang="it">Backend NestJS (5+ anni), Django/Celery, API REST e GraphQL. Frontend React + TypeScript + Vite, mobile con React Native per iOS e Android.</p>
+        <p data-lang="en">NestJS backends (5+ years), Django/Celery, REST and GraphQL APIs. Frontend React + TypeScript + Vite, mobile with React Native for iOS and Android.</p>
+      </div>
+      <div class="diagram-detail" id="dd-data">
+        <h4>L.02 DATA</h4>
+        <p data-lang="it">PostgreSQL + TimescaleDB per time-series, Redis per caching e correlazione event-driven, MQTT per messaging IoT asincrono cross-module.</p>
+        <p data-lang="en">PostgreSQL + TimescaleDB for time-series, Redis for caching and event-driven correlation, MQTT for asynchronous cross-module IoT messaging.</p>
+      </div>
+      <div class="diagram-detail" id="dd-infrastructure">
+        <h4>L.01 INFRASTRUCTURE</h4>
+        <p data-lang="it">Docker e Kubernetes principalmente on-premise. Pipeline CI/CD su GitHub e GitLab. Testing sistematico unit, integration e E2E con Playwright.</p>
+        <p data-lang="en">Docker and Kubernetes primarily on-premise. CI/CD pipelines on GitHub and GitLab. Systematic unit, integration and E2E testing with Playwright.</p>
+      </div>
+    </div>
   </div>
 </section>
 
@@ -936,15 +1612,15 @@ a.contact__value:hover { color: var(--accent); }
         <span data-lang="it">Profilo</span>
         <span data-lang="en">Profile</span>
       </h2>
-      <span class="section__meta">15+ YRS · FULL-STACK</span>
+      <span class="section__meta">FULL-STACK · ARCHITECT · AI</span>
     </div>
     <div class="profile reveal">
       <div>
-        <p data-lang="it">Senior Software Engineer con oltre quindici anni di esperienza full-stack e responsabilità architetturali. Guido un team di circa dieci sviluppatori su prodotti software TRL 6–9 — in produzione operativa, non prototipi — coprendo l'analisi dei requisiti, la selezione dello stack tecnologico, la progettazione High-Level e Low-Level, la definizione algoritmica e il reporting tecnico.</p>
-        <p data-lang="it">Lavoro in dual-track come AI Engineer: feature LLM production-grade — sistemi RAG, agenti, chatbot domain-specific, copilot interni — integrate nei prodotti consegnati ai clienti, e ricerca applicata in deep learning e computer vision su medical imaging e road monitoring. Il mio centro di gravità sta nell'infrastruttura on-premise event-driven e nei sistemi dove software, AI e architettura devono esistere insieme, non in compartimenti separati.</p>
+        <p data-lang="it">Progetto e costruisco sistemi software che vivono in produzione operativa. Guido un team di ~10 ingegneri su prodotti a TRL 6–9 — dai sistemi IoT industriali event-driven alle piattaforme smart city multi-modulo, fino all'integrazione LLM production-grade nei prodotti consegnati ai clienti. L'architettura, per me, non è un artefatto a parte: è la forma che assume il codice quando smette di essere un prototipo.</p>
+        <p data-lang="it">In parallelo, faccio R&amp;D in deep learning e computer vision — reti neurali per la segmentazione di masse tumorali da scansioni CT, classificazione delle condizioni del manto stradale — con pipeline DICOM scritte da zero in PyTorch e TensorFlow. Il mio centro di gravità è l'infrastruttura on-premise dove software, AI e sistemi distribuiti devono convivere come un'unica cosa, non come moduli separati.</p>
 
-        <p data-lang="en">Senior Software Engineer with over fifteen years of full-stack experience and architectural responsibilities. I lead a team of roughly ten engineers on TRL 6–9 software products — in operational production, not prototypes — covering requirements analysis, technology stack selection, High-Level and Low-Level design, algorithm definition, and technical reporting.</p>
-        <p data-lang="en">I work dual-track as an AI Engineer: production-grade LLM features — RAG systems, agents, domain-specific chatbots, internal copilots — embedded in products shipped to clients, and applied research in deep learning and computer vision for medical imaging and road monitoring. My center of gravity lies in event-driven on-premise infrastructure and in systems where software, AI, and architecture must live together, not in separate compartments.</p>
+        <p data-lang="en">I design and build software systems that live in operational production. I lead a team of ~10 engineers on TRL 6–9 products — from event-driven industrial IoT systems to multi-module smart city platforms, including production-grade LLM integrations shipped inside client products. For me, architecture isn't a separate artifact: it's the shape the code takes when it stops being a prototype.</p>
+        <p data-lang="en">In parallel, I run R&amp;D in deep learning and computer vision — neural networks for tumor detection and segmentation from CT scans, road surface condition classification — with DICOM pipelines written from scratch in PyTorch and TensorFlow. My center of gravity is the on-premise infrastructure where software, AI, and distributed systems must live as one, not as separate modules.</p>
       </div>
       <dl class="profile__aside">
         <dt data-lang="it">Ruoli</dt>
@@ -953,17 +1629,45 @@ a.contact__value:hover { color: var(--accent); }
 
         <dt data-lang="it">Team</dt>
         <dt data-lang="en">Team</dt>
-        <dd data-lang="it">~10 sviluppatori · PM · cliente</dd>
-        <dd data-lang="en">~10 engineers · PM · client</dd>
+        <dd data-lang="it">~10 ingegneri · PM · PMT · cliente</dd>
+        <dd data-lang="en">~10 engineers · PM · PMT · client</dd>
 
         <dt data-lang="it">Maturità</dt>
         <dt data-lang="en">Maturity</dt>
         <dd>TRL 6–9 · production</dd>
 
+        <dt data-lang="it">Stile architetturale</dt>
+        <dt data-lang="en">Architectural style</dt>
+        <dd>Event-driven · DDD · Microservizi</dd>
+
         <dt data-lang="it">Base</dt>
         <dt data-lang="en">Based in</dt>
         <dd>Santeramo in Colle (BA), Italia</dd>
       </dl>
+    </div>
+
+    <!-- STATS STRIP -->
+    <div class="stats reveal" id="stats">
+      <div class="stat">
+        <div class="stat__num" data-target="15" data-suffix="+"><em>15</em>+</div>
+        <div class="stat__label" data-lang="it">Anni di ingegneria</div>
+        <div class="stat__label" data-lang="en">Years in engineering</div>
+      </div>
+      <div class="stat">
+        <div class="stat__num" data-target="10"><em>10</em></div>
+        <div class="stat__label" data-lang="it">Ingegneri guidati</div>
+        <div class="stat__label" data-lang="en">Engineers led</div>
+      </div>
+      <div class="stat">
+        <div class="stat__num"><em>6</em>–<em>9</em></div>
+        <div class="stat__label" data-lang="it">TRL produzione</div>
+        <div class="stat__label" data-lang="en">TRL production</div>
+      </div>
+      <div class="stat">
+        <div class="stat__num" data-target="5" data-suffix="+"><em>5</em>+</div>
+        <div class="stat__label" data-lang="it">Anni NestJS / Node</div>
+        <div class="stat__label" data-lang="en">Years NestJS / Node</div>
+      </div>
     </div>
   </div>
 </section>
@@ -977,48 +1681,392 @@ a.contact__value:hover { color: var(--accent); }
         <span data-lang="it">Aree di competenza</span>
         <span data-lang="en">Areas of expertise</span>
       </h2>
-      <span class="section__meta">FOUR DOMAINS</span>
+      <span class="section__meta">FIVE DOMAINS · FULL DEPTH</span>
     </div>
     <div class="expertise__grid reveal">
 
-      <article class="expertise__card">
-        <div class="expertise__num">L.04 / INTELLIGENCE</div>
-        <h3 class="expertise__title"><em>LLM</em> & GenAI
-          <span data-lang="it"><br>in produzione</span>
-          <span data-lang="en"><br>in production</span>
+      <article class="exp-card">
+        <div class="exp-card__num">E.01 · L.04 INTELLIGENCE</div>
+        <h3 class="exp-card__title"><em>LLM</em> &amp; GenAI
+          <span data-lang="it">in produzione</span>
+          <span data-lang="en">in production</span>
         </h3>
-        <p class="expertise__desc" data-lang="it">Architettura di sistemi RAG, agenti, chatbot domain-specific e copilot interni integrati nei prodotti consegnati ai clienti. Prompt engineering per sviluppo, controllo e governance di AI.</p>
-        <p class="expertise__desc" data-lang="en">Architecture of RAG systems, agents, domain-specific chatbots, and internal copilots embedded in client-delivered products. Prompt engineering for development, control, and governance of AI.</p>
+        <p class="exp-card__desc" data-lang="it">Feature AI-powered consegnate ai clienti, non prototipi. Architettura, governance e integrazione deep nei prodotti.</p>
+        <p class="exp-card__desc" data-lang="en">AI-powered features shipped to clients, not prototypes. Architecture, governance, and deep product integration.</p>
+        <ul class="exp-card__list">
+          <li data-lang="it">Sistemi RAG production-grade con vector store embedded</li>
+          <li data-lang="it">Agenti LLM con tool calling e orchestrazione multi-step</li>
+          <li data-lang="it">Chatbot domain-specific con guardrail di dominio</li>
+          <li data-lang="it">Copilot interni come acceleratori di sviluppo</li>
+          <li data-lang="it">Prompt engineering per sviluppo, controllo e governance</li>
+          <li data-lang="it">Integrazione LLM embedded in piattaforme on-premise</li>
+
+          <li data-lang="en">Production-grade RAG systems with embedded vector stores</li>
+          <li data-lang="en">LLM agents with tool calling and multi-step orchestration</li>
+          <li data-lang="en">Domain-specific chatbots with domain guardrails</li>
+          <li data-lang="en">Internal copilots as development accelerators</li>
+          <li data-lang="en">Prompt engineering for development, control, governance</li>
+          <li data-lang="en">Embedded LLM integration in on-premise platforms</li>
+        </ul>
+        <div class="exp-card__meta" data-lang="it">Scope · Production · client-delivered</div>
+        <div class="exp-card__meta" data-lang="en">Scope · Production · client-delivered</div>
       </article>
 
-      <article class="expertise__card">
-        <div class="expertise__num">L.04 / INTELLIGENCE</div>
-        <h3 class="expertise__title"><em>Deep Learning</em>
-          <span data-lang="it"><br>& Computer Vision</span>
-          <span data-lang="en"><br>& Computer Vision</span>
+      <article class="exp-card">
+        <div class="exp-card__num">E.02 · L.04 INTELLIGENCE</div>
+        <h3 class="exp-card__title"><em>Deep Learning</em>
+          <span data-lang="it">&amp; Computer Vision</span>
+          <span data-lang="en">&amp; Computer Vision</span>
         </h3>
-        <p class="expertise__desc" data-lang="it">Reti neurali per medical imaging — tumor detection e segmentation da scansioni CT — e road surface monitoring. Pipeline DICOM custom, PyTorch e TensorFlow. Livello R&D.</p>
-        <p class="expertise__desc" data-lang="en">Neural networks for medical imaging — tumor detection and segmentation from CT scans — and road surface monitoring. Custom DICOM pipelines, PyTorch and TensorFlow. R&D scope.</p>
+        <p class="exp-card__desc" data-lang="it">Reti neurali per medical imaging e monitoraggio di infrastrutture fisiche. Pipeline custom, niente MONAI.</p>
+        <p class="exp-card__desc" data-lang="en">Neural networks for medical imaging and physical-infrastructure monitoring. Custom pipelines, no MONAI.</p>
+        <ul class="exp-card__list">
+          <li data-lang="it">Tumor detection &amp; segmentation da scansioni CT</li>
+          <li data-lang="it">Classificazione delle condizioni del manto stradale</li>
+          <li data-lang="it">Pipeline DICOM custom end-to-end</li>
+          <li data-lang="it">Training su hardware dedicato, inference on-premise</li>
+          <li data-lang="it">PyTorch e TensorFlow (entrambi in produzione di ricerca)</li>
+          <li data-lang="it">Integrazione dei modelli direttamente nelle piattaforme target</li>
+
+          <li data-lang="en">Tumor detection &amp; segmentation from CT scans</li>
+          <li data-lang="en">Road surface condition classification</li>
+          <li data-lang="en">Custom end-to-end DICOM pipelines</li>
+          <li data-lang="en">Training on dedicated hardware, on-premise inference</li>
+          <li data-lang="en">PyTorch and TensorFlow (both in research production)</li>
+          <li data-lang="en">Model integration directly into target platforms</li>
+        </ul>
+        <div class="exp-card__meta" data-lang="it">Scope · R&amp;D · on-premise deploy</div>
+        <div class="exp-card__meta" data-lang="en">Scope · R&amp;D · on-premise deploy</div>
       </article>
 
-      <article class="expertise__card">
-        <div class="expertise__num">§ / LEADERSHIP</div>
-        <h3 class="expertise__title"><em>Solution</em>
-          <span data-lang="it"><br>Architecture &amp; Tech Lead</span>
-          <span data-lang="en"><br>Architecture &amp; Tech Lead</span>
+      <article class="exp-card">
+        <div class="exp-card__num">E.03 · § LEADERSHIP</div>
+        <h3 class="exp-card__title"><em>Solution</em>
+          <span data-lang="it">Architecture &amp; Tech Lead</span>
+          <span data-lang="en">Architecture &amp; Tech Lead</span>
         </h3>
-        <p class="expertise__desc" data-lang="it">Analisi dei requisiti, selezione stack, HLD e LLD, progettazione algoritmica, report di sviluppo. Gestione di un team di ~10 persone e interfaccia diretta con PM, PMT e clienti.</p>
-        <p class="expertise__desc" data-lang="en">Requirements analysis, stack selection, HLD and LLD, algorithm design, development reports. Leadership of a ~10-person engineering team and direct interface with PM, PMT, and clients.</p>
+        <p class="exp-card__desc" data-lang="it">Dal requisito al deploy. Guida tecnica di un team di ~10 persone e interfaccia diretta con stakeholder business.</p>
+        <p class="exp-card__desc" data-lang="en">From requirement to deploy. Technical leadership of a ~10-person team and direct interface with business stakeholders.</p>
+        <ul class="exp-card__list">
+          <li data-lang="it">Analisi dei requisiti e selezione dello stack</li>
+          <li data-lang="it">High-Level Design e Low-Level Design</li>
+          <li data-lang="it">Progettazione algoritmica e report di sviluppo</li>
+          <li data-lang="it">Advisory client-facing multi-opzione con framing decisionale Pro/Contro/Quando-è-la-scelta-giusta</li>
+          <li data-lang="it">TCO analysis e confronto comparativo tra stack alternativi</li>
+          <li data-lang="it">Stima effort (G/U) su team multi-ruolo</li>
+          <li data-lang="it">Gestione di ~10 sviluppatori · code review · mentoring</li>
+          <li data-lang="it">Interfaccia con PM, Project Management Team, clienti</li>
+
+          <li data-lang="en">Requirements analysis and stack selection</li>
+          <li data-lang="en">High-Level Design and Low-Level Design</li>
+          <li data-lang="en">Algorithm design and development reports</li>
+          <li data-lang="en">Client-facing multi-option advisory with decision framing (Pros/Cons/When-it's-the-right-fit)</li>
+          <li data-lang="en">TCO analysis and comparative evaluation of alternative stacks</li>
+          <li data-lang="en">Effort estimation (D/U) across multi-role teams</li>
+          <li data-lang="en">Leading ~10 engineers · code review · mentoring</li>
+          <li data-lang="en">Interface with PM, Project Management Team, clients</li>
+        </ul>
+        <div class="exp-card__meta" data-lang="it">Scope · end-to-end · client-facing</div>
+        <div class="exp-card__meta" data-lang="en">Scope · end-to-end · client-facing</div>
       </article>
 
-      <article class="expertise__card">
-        <div class="expertise__num">L.04 / INTELLIGENCE</div>
-        <h3 class="expertise__title"><em>Applied ML</em>
-          <span data-lang="it"><br>per la produzione</span>
-          <span data-lang="en"><br>for production</span>
+      <article class="exp-card">
+        <div class="exp-card__num">E.04 · L.04 INTELLIGENCE</div>
+        <h3 class="exp-card__title"><em>Applied ML</em>
+          <span data-lang="it">production-grade</span>
+          <span data-lang="en">production-grade</span>
         </h3>
-        <p class="expertise__desc" data-lang="it">Anomaly detection statistica, baseline learning passivo, XGBoost, regressione, algoritmi predittivi per piattaforme IoT industriali e smart city con vincoli CPU-only.</p>
-        <p class="expertise__desc" data-lang="en">Statistical anomaly detection, passive baseline learning, XGBoost, regression, predictive algorithms for industrial IoT and smart-city platforms under CPU-only constraints.</p>
+        <p class="exp-card__desc" data-lang="it">ML pragmatico che gira in produzione reale — con vincoli CPU-only e requisiti di latenza bassi.</p>
+        <p class="exp-card__desc" data-lang="en">Pragmatic ML running in real production — with CPU-only constraints and tight latency requirements.</p>
+        <ul class="exp-card__list">
+          <li data-lang="it">Anomaly detection statistica multi-sensore</li>
+          <li data-lang="it">Baseline learning passivo con calibrazione continua</li>
+          <li data-lang="it">XGBoost per forecasting e classificazione</li>
+          <li data-lang="it">Regressione lineare per stime real-time</li>
+          <li data-lang="it">Algoritmi predittivi su dati IoT time-series</li>
+          <li data-lang="it">Triangolazione logaritmica e correlazione asincrona</li>
+
+          <li data-lang="en">Multi-sensor statistical anomaly detection</li>
+          <li data-lang="en">Passive baseline learning with continuous calibration</li>
+          <li data-lang="en">XGBoost for forecasting and classification</li>
+          <li data-lang="en">Linear regression for real-time estimation</li>
+          <li data-lang="en">Predictive algorithms over IoT time-series data</li>
+          <li data-lang="en">Logarithmic triangulation and asynchronous correlation</li>
+        </ul>
+        <div class="exp-card__meta" data-lang="it">Scope · Production · IoT + smart city</div>
+        <div class="exp-card__meta" data-lang="en">Scope · Production · IoT + smart city</div>
+      </article>
+
+      <article class="exp-card" style="grid-column: span 2;">
+        <div class="exp-card__num">E.05 · § GOVERNANCE</div>
+        <h3 class="exp-card__title"><em>Risk Management</em>
+          <span data-lang="it">&amp; Migration Safety</span>
+          <span data-lang="en">&amp; Migration Safety</span>
+        </h3>
+        <p class="exp-card__desc" data-lang="it">Disciplina formale di risk &amp; estimation governance. Ogni decisione tecnica client-facing è accompagnata da un framework che espone rischi, assunzioni e varianza — non da promesse.</p>
+        <p class="exp-card__desc" data-lang="en">Formal risk &amp; estimation governance discipline. Every client-facing technical decision comes with a framework that exposes risks, assumptions, and variance — not promises.</p>
+        <ul class="exp-card__list">
+          <li data-lang="it">Risk register formale con matrice Impatto × Probabilità × Mitigazione</li>
+          <li data-lang="it">Stime con varianza esplicita e forchetta motivata (min–max)</li>
+          <li data-lang="it">Assunzioni documentate con trigger espliciti di re-scope</li>
+          <li data-lang="it">Migration safety patterns: Adapter layer, Shadow testing, contract preservation</li>
+          <li data-lang="it">Gap analysis pre-implementazione con fallback logics documentate</li>
+          <li data-lang="it">Articolazione in cantieri separati (stabilità/refactoring · conformità · evolutive)</li>
+
+          <li data-lang="en">Formal risk register with Impact × Probability × Mitigation matrix</li>
+          <li data-lang="en">Estimates with explicit variance and justified range (min–max)</li>
+          <li data-lang="en">Documented assumptions with explicit re-scope triggers</li>
+          <li data-lang="en">Migration safety patterns: Adapter layer, Shadow testing, contract preservation</li>
+          <li data-lang="en">Pre-implementation gap analysis with documented fallback logics</li>
+          <li data-lang="en">Work stream partitioning (stability/refactoring · compliance · evolutions)</li>
+        </ul>
+        <div class="exp-card__meta" data-lang="it">Scope · client-facing assessment · pre-implementation</div>
+        <div class="exp-card__meta" data-lang="en">Scope · client-facing assessment · pre-implementation</div>
+      </article>
+
+    </div>
+  </div>
+</section>
+
+<!-- ================= SIGNATURE WORKS ================= -->
+<section class="section" id="works">
+  <div class="container">
+    <div class="section__head reveal">
+      <span class="section__num">§03</span>
+      <h2 class="section__title">
+        <span data-lang="it">Opere significative</span>
+        <span data-lang="en">Signature works</span>
+      </h2>
+      <span class="section__meta">
+        <span data-lang="it">ARCHETIPI · SOTTO NDA</span>
+        <span data-lang="en">ARCHETYPES · UNDER NDA</span>
+      </span>
+    </div>
+
+    <div class="works reveal">
+
+      <article class="work">
+        <div class="work__idx">
+          <strong>A.01</strong>
+          2023 —
+        </div>
+        <div>
+          <h3 class="work__title">
+            <span data-lang="it">Piattaforma Smart City &amp; Mobility</span>
+            <span data-lang="en">Smart City &amp; Mobility Platform</span>
+          </h3>
+          <div class="work__role">SOLUTION ARCHITECT · TECH LEAD</div>
+          <p class="work__desc" data-lang="it">Piattaforma multi-modulo che orchestra qualità dell'aria, car/bike sharing, parking e traffic monitoring via MQTT cross-module. Event-driven, Docker Compose, ML CPU-only per forecasting su dati time-series ad alta cardinalità.</p>
+          <p class="work__desc" data-lang="en">Multi-module platform orchestrating air quality, car/bike sharing, parking, and traffic monitoring via cross-module MQTT. Event-driven, Docker Compose, CPU-only ML for forecasting over high-cardinality time-series.</p>
+        </div>
+        <div class="work__tech">
+          <div class="work__tech-label">STACK</div>
+          <div class="work__tech-list">
+            <span>NestJS</span><span>React · Vite</span><span>PostgreSQL</span>
+            <span>TimescaleDB</span><span>Redis</span><span>MQTT (Mosquitto)</span>
+            <span>XGBoost</span><span>Docker Compose</span>
+          </div>
+        </div>
+      </article>
+
+      <article class="work">
+        <div class="work__idx">
+          <strong>A.02</strong>
+          2024 —
+        </div>
+        <div>
+          <h3 class="work__title">
+            <span data-lang="it">Sistema IoT per Sicurezza Industriale</span>
+            <span data-lang="en">Industrial Safety IoT System</span>
+          </h3>
+          <div class="work__role">SOLUTION ARCHITECT</div>
+          <p class="work__desc" data-lang="it">Architettura model-agnostic per correlazione asincrona multi-sensore su timestamp. Triangolazione logaritmica, digital twin geometrico, anomaly detection statistica con baseline learning passivo e calibrazione zero-impact.</p>
+          <p class="work__desc" data-lang="en">Model-agnostic architecture for asynchronous multi-sensor correlation on timestamps. Logarithmic triangulation, geometric digital twin, statistical anomaly detection with passive baseline learning and zero-impact calibration.</p>
+        </div>
+        <div class="work__tech">
+          <div class="work__tech-label">STACK</div>
+          <div class="work__tech-list">
+            <span>Python</span><span>Django</span><span>Celery</span>
+            <span>Redis</span><span>PostgreSQL</span>
+            <span>Event-driven</span><span>Digital Twin</span>
+          </div>
+        </div>
+      </article>
+
+      <article class="work">
+        <div class="work__idx">
+          <strong>A.03</strong>
+          2022 —
+        </div>
+        <div>
+          <h3 class="work__title">
+            <span data-lang="it">Feature LLM Production nei prodotti cliente</span>
+            <span data-lang="en">Production LLM features in client products</span>
+          </h3>
+          <div class="work__role">AI ENGINEER · ARCHITECT</div>
+          <p class="work__desc" data-lang="it">Sistemi RAG, agenti con tool calling, chatbot domain-specific e copilot interni integrati dentro prodotti software consegnati ai clienti. Prompt engineering per sviluppo, controllo e governance di AI in pipeline reali.</p>
+          <p class="work__desc" data-lang="en">RAG systems, agents with tool calling, domain-specific chatbots, and internal copilots embedded inside software products delivered to clients. Prompt engineering for development, control, and governance of AI in real pipelines.</p>
+        </div>
+        <div class="work__tech">
+          <div class="work__tech-label">
+            <span data-lang="it">APPROCCIO</span>
+            <span data-lang="en">APPROACH</span>
+          </div>
+          <div class="work__tech-list">
+            <span>RAG</span><span>LLM Agents</span>
+            <span data-lang="it">API-native SDK</span>
+            <span data-lang="en">API-native SDK</span>
+            <span data-lang="it">Embedded deploy</span>
+            <span data-lang="en">Embedded deploy</span>
+            <span>Prompt Engineering</span>
+          </div>
+        </div>
+      </article>
+
+      <article class="work">
+        <div class="work__idx">
+          <strong>A.04</strong>
+          R&amp;D
+        </div>
+        <div>
+          <h3 class="work__title">
+            <span data-lang="it">Medical Imaging — Tumor Segmentation</span>
+            <span data-lang="en">Medical Imaging — Tumor Segmentation</span>
+          </h3>
+          <div class="work__role">ML RESEARCH ENGINEER</div>
+          <p class="work__desc" data-lang="it">Reti neurali per detection e segmentazione di masse tumorali da scansioni CT. Pipeline DICOM scritte da zero, training su hardware dedicato, inferenza integrata nella piattaforma target on-premise. Parallelamente: classificazione del manto stradale.</p>
+          <p class="work__desc" data-lang="en">Neural networks for tumor detection and segmentation from CT scans. DICOM pipelines written from scratch, training on dedicated hardware, inference embedded in the target on-premise platform. In parallel: road surface classification.</p>
+        </div>
+        <div class="work__tech">
+          <div class="work__tech-label">STACK</div>
+          <div class="work__tech-list">
+            <span>PyTorch</span><span>TensorFlow</span>
+            <span>DICOM</span><span>Computer Vision</span>
+            <span data-lang="it">Training GPU dedicato</span>
+            <span data-lang="en">Dedicated GPU training</span>
+          </div>
+        </div>
+      </article>
+
+      <article class="work">
+        <div class="work__idx">
+          <strong>A.06</strong>
+          2024 —
+        </div>
+        <div>
+          <h3 class="work__title">
+            <span data-lang="it">Piattaforma Retail Digital Twin</span>
+            <span data-lang="en">Retail Digital Twin Platform</span>
+          </h3>
+          <div class="work__role">SOLUTION ARCHITECT · TECH LEAD</div>
+          <p class="work__desc" data-lang="it">Digital Twin dello scaffale retail per GDO su scala multi-store. Algoritmo di proiezione volumetrica per On-Shelf Availability di alta precisione, multi-tenancy con Row-Level Security, workflow di calibrazione assistita dal personale store, BI dashboard per KPI operativi.</p>
+          <p class="work__desc" data-lang="en">Retail shelf Digital Twin for large-scale GDO across multiple stores. Volumetric projection algorithm for high-precision On-Shelf Availability, multi-tenancy with Row-Level Security, store-operator-assisted calibration workflow, BI dashboard for operational KPIs.</p>
+        </div>
+        <div class="work__tech">
+          <div class="work__tech-label">STACK</div>
+          <div class="work__tech-list">
+            <span>Django</span><span>DRF</span>
+            <span>MQTT (enterprise)</span><span>Celery</span>
+            <span>Redis</span><span>PostgreSQL + TimescaleDB</span>
+            <span>Apache Superset</span>
+          </div>
+        </div>
+      </article>
+
+      <article class="work">
+        <div class="work__idx">
+          <strong>A.07</strong>
+          2025 —
+        </div>
+        <div>
+          <h3 class="work__title">
+            <span data-lang="it">Piattaforma clinica — Gap analysis &amp; roadmap</span>
+            <span data-lang="en">Clinical Data Platform — Gap analysis &amp; roadmap</span>
+          </h3>
+          <div class="work__role">SOLUTION ARCHITECT · ANALYSIS LEAD</div>
+          <p class="work__desc" data-lang="it">Piattaforma per cartella paziente, visite, calcoli clinici e refertazione. Leadership tecnica su assessment completo: gap analysis articolata in tre cantieri (stabilità/refactoring, conformità ai requisiti documentali, evolutive ML), stima gg/uomo strutturata per tempo probabile, sintesi manageriale client-facing con impact business.</p>
+          <p class="work__desc" data-lang="en">Platform covering patient records, visits, clinical computations, and reporting. Technical leadership on complete assessment: gap analysis structured across three work streams (stability/refactoring, documented-requirements alignment, ML evolutions), person-day estimation by probable time, client-facing managerial synthesis with business impact.</p>
+        </div>
+        <div class="work__tech">
+          <div class="work__tech-label">
+            <span data-lang="it">AMBITO</span>
+            <span data-lang="en">SCOPE</span>
+          </div>
+          <div class="work__tech-list">
+            <span>Gap Analysis</span><span>WBS</span>
+            <span data-lang="it">Stima gg/uomo</span>
+            <span data-lang="en">Person-day estimation</span>
+            <span data-lang="it">Refactoring roadmap</span>
+            <span data-lang="en">Refactoring roadmap</span>
+            <span data-lang="it">Standardizzazione dati clinici</span>
+            <span data-lang="en">Clinical data standardization</span>
+            <span>Audit trail</span>
+          </div>
+        </div>
+      </article>
+
+      <article class="work">
+        <div class="work__idx">
+          <strong>A.08</strong>
+          2026 —
+        </div>
+        <div>
+          <h3 class="work__title">
+            <span data-lang="it">Integrazione Enterprise SaaS</span>
+            <span data-lang="en">Enterprise SaaS Integration</span>
+          </h3>
+          <div class="work__role">SOLUTION ARCHITECT · INTEGRATION LEAD</div>
+          <p class="work__desc" data-lang="it">Adapter layer tra gestionale cliente e piattaforma e-learning enterprise. Matrice RACI su team cross-azienda, REST API con token security e permessi granulari, data seeding per allineamento utenze pregresse. Pattern di integrazione riutilizzabile su altri provider.</p>
+          <p class="work__desc" data-lang="en">Adapter layer between the client's business-management system and an enterprise e-learning platform. RACI matrix across cross-company teams, REST APIs with token security and granular permissions, data seeding for legacy-user alignment. Reusable integration pattern across providers.</p>
+        </div>
+        <div class="work__tech">
+          <div class="work__tech-label">
+            <span data-lang="it">AMBITO</span>
+            <span data-lang="en">SCOPE</span>
+          </div>
+          <div class="work__tech-list">
+            <span>REST APIs</span><span>Token Security</span>
+            <span data-lang="it">Matrice RACI</span>
+            <span data-lang="en">RACI matrix</span>
+            <span>Data Seeding</span>
+            <span data-lang="it">Integrazione sistemi esterni</span>
+            <span data-lang="en">External system integration</span>
+            <span data-lang="it">WBS unificata</span>
+            <span data-lang="en">Unified WBS</span>
+          </div>
+        </div>
+      </article>
+
+      <article class="work">
+        <div class="work__idx">
+          <strong>A.05</strong>
+          2026 —
+        </div>
+        <div>
+          <h3 class="work__title">
+            <span data-lang="it">Linee Guida Operative per lo Sviluppo Software</span>
+            <span data-lang="en">Software Development Operating Guidelines</span>
+          </h3>
+          <div class="work__role">METHODOLOGY ARCHITECT · AI GOVERNANCE</div>
+          <p class="work__desc" data-lang="it">Formalizzazione dell'SDLC aziendale: matrice di responsabilità a quattro ruoli (Analisi, ML, Sistemi, Sviluppo), tre macro-workflow (Kanban → Scrum, Water-Scrum-Fall per legacy, Day-2 operations), governance esplicita degli agenti AI mappati alle fasi di sviluppo, Knowledge Management via RAG aziendale su tutti i Report di Esecuzione.</p>
+          <p class="work__desc" data-lang="en">Formalization of the company SDLC: four-role responsibility matrix (Analysis, ML, Systems, Development), three macro-workflows (Kanban → Scrum, Water-Scrum-Fall for legacy refactoring, Day-2 operations), explicit governance of AI agents mapped to development phases, Knowledge Management via corporate RAG over all Execution Reports.</p>
+        </div>
+        <div class="work__tech">
+          <div class="work__tech-label">
+            <span data-lang="it">AMBITO</span>
+            <span data-lang="en">SCOPE</span>
+          </div>
+          <div class="work__tech-list">
+            <span data-lang="it">Responsibility Matrix</span>
+            <span data-lang="en">Responsibility Matrix</span>
+            <span>SDLC</span>
+            <span>AI Governance</span>
+            <span data-lang="it">RAG aziendale</span>
+            <span data-lang="en">Corporate RAG</span>
+            <span>LlamaIndex</span><span>Pinecone</span>
+            <span>HLD / LLD</span>
+          </div>
+        </div>
       </article>
 
     </div>
@@ -1029,7 +2077,7 @@ a.contact__value:hover { color: var(--accent); }
 <section class="section" id="experience">
   <div class="container">
     <div class="section__head reveal">
-      <span class="section__num">§03</span>
+      <span class="section__num">§04</span>
       <h2 class="section__title">
         <span data-lang="it">Esperienza</span>
         <span data-lang="en">Experience</span>
@@ -1044,10 +2092,13 @@ a.contact__value:hover { color: var(--accent); }
           <span class="job__company">Dyrecta Lab · Conversano (BA)</span>
         </div>
         <div>
-          <h3 class="job__title">Senior Software Engineer <em style="color:var(--accent);font-style:italic;">·</em> Solution Architect</h3>
-          <div class="job__role">TECH LEAD · ~10 ENGINEERS · CLIENT-FACING</div>
+          <h3 class="job__title">Senior Software Engineer <em>·</em> Solution Architect</h3>
+          <div class="job__role">TECH LEAD · ~10 ENGINEERS · METHODOLOGY · CLIENT-FACING</div>
           <ul class="job__bullets">
             <li data-lang="it">Guida tecnica di ~10 sviluppatori, coordinamento con Project Management Team, Project Manager e clienti finali.</li>
+            <li data-lang="it">Autore delle Linee Guida Operative per lo Sviluppo Software aziendali: matrice di responsabilità a quattro ruoli, macro-workflow MVP → produzione, Water-Scrum-Fall per legacy, Day-2 operations, governance degli agenti AI nell'SDLC e Knowledge Management via RAG aziendale.</li>
+            <li data-lang="it">Nominato all'unanimità dall'esecutivo come Referente Analisi e di Area (RA) ad interim: ingegneria dei requisiti, conformità normativa, QA tecnica, gestione rischi e consegna finale su tutti i progetti attivi, in parallelo al ruolo primario di Referente Sviluppo Software (RD).</li>
+            <li data-lang="it">Assessment client-facing con risk register formale (Impatto × Probabilità × Mitigazione), stime con varianza esplicita e assunzioni documentate, WBS per tempo probabile articolata in cantieri separati (stabilità, conformità, evolutive), sintesi manageriali con impact business.</li>
             <li data-lang="it">Architettura software end-to-end su prodotti TRL 6–9: analisi dei requisiti, selezione stack, High-Level Design, Low-Level Design, progettazione algoritmica, report di sviluppo.</li>
             <li data-lang="it">Progettazione di piattaforme IoT industriali event-driven con MQTT, correlazione multi-sensore su timestamp asincroni, triangolazione logaritmica, digital twin geometrico, anomaly detection statistica con baseline learning passivo.</li>
             <li data-lang="it">Architettura e sviluppo di piattaforma smart city multi-modulo (air quality, sharing, parking, traffic monitoring) con MQTT cross-module, Docker Compose, PostgreSQL + TimescaleDB, Redis.</li>
@@ -1055,6 +2106,9 @@ a.contact__value:hover { color: var(--accent); }
             <li data-lang="it">R&amp;D in deep learning e computer vision: reti neurali per segmentazione di masse tumorali da scansioni CT e classificazione delle condizioni del manto stradale, con pipeline DICOM custom (PyTorch, TensorFlow).</li>
 
             <li data-lang="en">Technical leadership of ~10 engineers; coordination with Project Management Team, Project Managers, and client stakeholders.</li>
+            <li data-lang="en">Author of the company's Software Development Operating Guidelines: four-role responsibility matrix, MVP → production macro-workflow, Water-Scrum-Fall for legacy refactoring, Day-2 operations, AI agent governance across the SDLC, and Knowledge Management via corporate RAG.</li>
+            <li data-lang="en">Unanimously appointed by the executive team as interim Analysis &amp; Area Lead (RA): requirements engineering, regulatory compliance, technical QA, risk management, and final delivery across all active projects, in parallel with the primary Software Development Lead (RD) role.</li>
+            <li data-lang="en">Client-facing assessments with formal risk register (Impact × Probability × Mitigation), estimates with explicit variance and documented assumptions, WBS by probable time partitioned into separate work streams (stability, compliance, evolutions), managerial synthesis with business impact.</li>
             <li data-lang="en">End-to-end software architecture on TRL 6–9 products: requirements analysis, stack selection, High-Level Design, Low-Level Design, algorithm design, development reports.</li>
             <li data-lang="en">Design of event-driven industrial IoT platforms with MQTT, multi-sensor asynchronous timestamp correlation, logarithmic triangulation, geometric digital twins, and statistical anomaly detection with passive baseline learning.</li>
             <li data-lang="en">Architecture and development of a multi-module smart-city platform (air quality, sharing, parking, traffic monitoring) with cross-module MQTT, Docker Compose, PostgreSQL + TimescaleDB, Redis.</li>
@@ -1070,7 +2124,7 @@ a.contact__value:hover { color: var(--accent); }
           <span class="job__company">Evolware srl · Gioia del Colle (BA)</span>
         </div>
         <div>
-          <h3 class="job__title">Software Developer <em style="color:var(--accent);font-style:italic;">·</em> Team Lead</h3>
+          <h3 class="job__title">Software Developer <em>·</em> Team Lead</h3>
           <div class="job__role">WEB APPLICATIONS · ENTERPRISE INTEGRATIONS</div>
           <ul class="job__bullets">
             <li data-lang="it">Coordinamento del team di sviluppo e sviluppo full-stack di applicativi web.</li>
@@ -1090,59 +2144,108 @@ a.contact__value:hover { color: var(--accent); }
 <section class="section" id="stack">
   <div class="container">
     <div class="section__head reveal">
-      <span class="section__num">§04</span>
+      <span class="section__num">§05</span>
       <h2 class="section__title">
         <span data-lang="it">Stack tecnologico</span>
         <span data-lang="en">Technology stack</span>
       </h2>
-      <span class="section__meta">PRIMARY TOOLSET</span>
+      <span class="section__meta">
+        <span data-lang="it">DEPTH · IN ANNI</span>
+        <span data-lang="en">DEPTH · IN YEARS</span>
+      </span>
     </div>
     <div class="stack reveal">
 
       <div class="stack__row">
         <div class="stack__label">Backend</div>
         <div class="stack__tags">
-          <span>Node.js</span><span>NestJS</span><span>TypeScript</span>
-          <span>Python</span><span>Django</span><span>Celery</span><span>PHP</span>
-          <span>REST</span><span>SOAP</span><span>WebSocket</span><span>MQTT</span>
+          <span class="tech">Node.js<sup>5+</sup></span>
+          <span class="tech">NestJS<sup>5+</sup></span>
+          <span class="tech">TypeScript<sup>5+</sup></span>
+          <span class="tech">Python<sup>10+</sup></span>
+          <span class="tech">Django</span>
+          <span class="tech">Celery</span>
+          <span class="tech">PHP<sup>10+</sup></span>
+          <span class="tech">REST</span>
+          <span class="tech">GraphQL</span>
+          <span class="tech">SOAP</span>
+          <span class="tech">WebSocket</span>
+          <span class="tech">MQTT</span>
+          <span class="tech">RabbitMQ</span>
         </div>
       </div>
 
       <div class="stack__row">
         <div class="stack__label">Frontend &amp; Mobile</div>
         <div class="stack__tags">
-          <span>React</span><span>TypeScript</span><span>Vite</span>
-          <span>React Native</span><span>iOS</span><span>Android</span>
-          <span>HTML5</span><span>CSS3</span>
+          <span class="tech">React<sup>10+</sup></span>
+          <span class="tech">TypeScript<sup>5+</sup></span>
+          <span class="tech">Vite</span>
+          <span class="tech">React Native<sup>8+</sup></span>
+          <span class="tech">iOS</span>
+          <span class="tech">Android</span>
+          <span class="tech">HTML5<sup>15+</sup></span>
+          <span class="tech">CSS3<sup>15+</sup></span>
         </div>
       </div>
 
       <div class="stack__row">
         <div class="stack__label">Data &amp; Persistence</div>
         <div class="stack__tags">
-          <span>PostgreSQL</span><span>TimescaleDB</span><span>MySQL</span>
-          <span>Redis</span><span>Firestore</span>
+          <span class="tech">PostgreSQL</span>
+          <span class="tech">TimescaleDB</span>
+          <span class="tech">MySQL<sup>15+</sup></span>
+          <span class="tech">Redis</span>
+          <span class="tech">Firestore</span>
+          <span class="tech">SQL<sup>15+</sup></span>
+          <span class="tech">SQLAlchemy</span>
         </div>
       </div>
 
       <div class="stack__row">
         <div class="stack__label">Infrastructure / DevOps</div>
         <div class="stack__tags">
-          <span>Docker</span><span>Docker Compose</span>
-          <span>Kubernetes</span>
-          <span>Apache</span><span>Nginx</span><span>IIS</span>
-          <span>Firebase</span><span>GitHub</span><span>GitLab</span><span>CI/CD</span>
+          <span class="tech">Docker</span>
+          <span class="tech">Docker Compose</span>
+          <span class="tech">Kubernetes</span>
+          <span class="tech">Apache</span>
+          <span class="tech">Nginx</span>
+          <span class="tech">IIS</span>
+          <span class="tech">Firebase</span>
+          <span class="tech">GitHub</span>
+          <span class="tech">GitLab</span>
+          <span class="tech">CI/CD</span>
         </div>
       </div>
 
       <div class="stack__row">
         <div class="stack__label">AI / ML</div>
         <div class="stack__tags">
-          <span>PyTorch</span><span>TensorFlow</span>
-          <span>XGBoost</span>
-          <span>RAG</span><span>LLM Agents</span>
-          <span>Computer Vision</span><span>DICOM</span>
-          <span>Prompt Engineering</span>
+          <span class="tech">PyTorch</span>
+          <span class="tech">TensorFlow</span>
+          <span class="tech">XGBoost</span>
+          <span class="tech">DICOM</span>
+          <span class="tech">Computer Vision</span>
+          <span class="tech">RAG</span>
+          <span class="tech">LLM Agents</span>
+          <span class="tech">Prompt Engineering</span>
+        </div>
+      </div>
+
+      <div class="stack__row">
+        <div class="stack__label">
+          <span data-lang="it">Architettura</span>
+          <span data-lang="en">Architecture</span>
+        </div>
+        <div class="stack__tags">
+          <span class="tech">Event-driven</span>
+          <span class="tech">Domain-Driven Design</span>
+          <span class="tech">
+            <span data-lang="it">Microservizi</span>
+            <span data-lang="en">Microservices</span>
+          </span>
+          <span class="tech">Digital Twin</span>
+          <span class="tech">HLD / LLD</span>
         </div>
       </div>
 
@@ -1152,35 +2255,20 @@ a.contact__value:hover { color: var(--accent); }
           <span data-lang="en">Quality &amp; Testing</span>
         </div>
         <div class="stack__tags">
-          <span>Unit</span><span>Integration</span><span>E2E</span>
-          <span>Playwright</span><span>Code Review</span>
-          <span>GDPR</span><span>Industry 4.0</span>
+          <span class="tech">Unit</span>
+          <span class="tech">Integration</span>
+          <span class="tech">E2E</span>
+          <span class="tech">Playwright</span>
+          <span class="tech">Cypress</span>
+          <span class="tech">Jest</span>
+          <span class="tech">Vitest</span>
+          <span class="tech">pytest</span>
+          <span class="tech">Code Review</span>
+          <span class="tech">GDPR</span>
+          <span class="tech">Industry 4.0</span>
         </div>
       </div>
 
-    </div>
-  </div>
-</section>
-
-<!-- ================= PATTERNS ================= -->
-<section class="section" id="patterns">
-  <div class="container">
-    <div class="section__head reveal">
-      <span class="section__num">§05</span>
-      <h2 class="section__title">
-        <span data-lang="it">Pattern architetturali &amp; metodologie</span>
-        <span data-lang="en">Architectural patterns &amp; methodologies</span>
-      </h2>
-      <span class="section__meta">HOW I BUILD</span>
-    </div>
-    <div class="patterns reveal">
-      <span>Event-driven</span>
-      <span>Domain-Driven Design</span>
-      <span data-lang="it">Microservizi</span>
-      <span data-lang="en">Microservices</span>
-      <span>Digital Twin</span>
-      <span>Agile</span>
-      <span>OOP</span>
     </div>
   </div>
 </section>
@@ -1194,7 +2282,7 @@ a.contact__value:hover { color: var(--accent); }
         <span data-lang="it">Formazione &amp; lingue</span>
         <span data-lang="en">Education &amp; languages</span>
       </h2>
-      <span class="section__meta">EDUCATION / LANG</span>
+      <span class="section__meta">FOUNDATIONS</span>
     </div>
     <div class="edu-grid reveal">
       <div>
@@ -1218,10 +2306,10 @@ a.contact__value:hover { color: var(--accent); }
       </div>
 
       <div class="langs">
-        <div data-lang="it"><strong>Italiano</strong> — madrelingua</div>
-        <div data-lang="en"><strong>Italian</strong> — native</div>
-        <div data-lang="it"><strong>Inglese</strong> — B2 ascolto, B2 parlato, B1 scritto</div>
-        <div data-lang="en"><strong>English</strong> — B2 listening, B2 speaking, B1 writing</div>
+        <div data-lang="it"><strong>Italiano</strong> madrelingua</div>
+        <div data-lang="en"><strong>Italian</strong> native</div>
+        <div data-lang="it"><strong>Inglese</strong> B2 ascolto · B2 parlato · B1 scritto</div>
+        <div data-lang="en"><strong>English</strong> B2 listening · B2 speaking · B1 writing</div>
       </div>
     </div>
   </div>
@@ -1231,10 +2319,12 @@ a.contact__value:hover { color: var(--accent); }
 <section class="section contact" id="contact">
   <div class="container">
     <div class="contact__inner">
-      <div class="corner-marks" aria-hidden="true"><span class="bl"></span><span class="br"></span></div>
+      <span class="corner-bl"></span><span class="corner-br"></span>
+
+      <span class="contact__num">§07 — CONTACT</span>
 
       <h2 class="contact__headline" data-lang="it">
-        Costruiamo qualcosa di<br><em>affidabile</em>, insieme.
+        Costruiamo qualcosa<br>di <em>affidabile</em>, insieme.
       </h2>
       <h2 class="contact__headline" data-lang="en">
         Let's build something<br><em>reliable</em>, together.
@@ -1260,6 +2350,13 @@ a.contact__value:hover { color: var(--accent); }
           <span class="contact__value" data-lang="it">Progetti selezionati</span>
           <span class="contact__value" data-lang="en">Selected projects</span>
         </div>
+        <div class="contact__row">
+          <span class="contact__label">Shortcut</span>
+          <span class="contact__value" style="font-family: var(--font-mono); font-size: 0.88rem; color: var(--fg-muted);">
+            <span data-lang="it">Premi <kbd style="padding:0.1rem 0.4rem;border:1px solid var(--line);border-radius:2px;background:rgba(0,0,0,0.3);">⌘K</kbd> per i comandi</span>
+            <span data-lang="en">Press <kbd style="padding:0.1rem 0.4rem;border:1px solid var(--line);border-radius:2px;background:rgba(0,0,0,0.3);">⌘K</kbd> for commands</span>
+          </span>
+        </div>
       </div>
     </div>
   </div>
@@ -1275,41 +2372,377 @@ a.contact__value:hover { color: var(--accent); }
   <div>Sheet 01 / 01 · Rev. 2026.04</div>
 </footer>
 
+<!-- ================= COMMAND PALETTE ================= -->
+<div class="cmdk-backdrop" id="cmdkBackdrop" role="dialog" aria-hidden="true">
+  <div class="cmdk" role="listbox">
+    <div class="cmdk__header">
+      <span class="cmdk__prompt">›</span>
+      <input class="cmdk__input" id="cmdkInput" type="text" autocomplete="off" spellcheck="false">
+      <span class="cmdk__esc">ESC</span>
+    </div>
+    <div class="cmdk__list" id="cmdkList"></div>
+    <div class="cmdk__footer">
+      <span><kbd>↑</kbd><kbd>↓</kbd> <span data-lang="it">naviga</span><span data-lang="en">navigate</span></span>
+      <span><kbd>↵</kbd> <span data-lang="it">seleziona</span><span data-lang="en">select</span></span>
+      <span><kbd>ESC</kbd> <span data-lang="it">chiudi</span><span data-lang="en">close</span></span>
+    </div>
+  </div>
+</div>
+
+<!-- Toast -->
+<div class="toast" id="toast"></div>
+
 <script>
-  // ============ LANG TOGGLE ============
-  (function () {
-    const btns = document.querySelectorAll('[data-lang-btn]');
-    const saved = localStorage.getItem('fp-lang');
-    if (saved === 'en' || saved === 'it') {
-      setLang(saved);
-    }
-    btns.forEach(b => b.addEventListener('click', () => setLang(b.dataset.langBtn)));
+// =========================================================================
+// CONSOLE EASTER EGG
+// =========================================================================
+(function () {
+  const styles = {
+    title: 'color:#D4B685;font-family:serif;font-size:22px;font-weight:400;font-style:italic;',
+    body:  'color:#F0E6CD;font-family:monospace;font-size:12px;line-height:1.6;',
+    accent:'color:#7AA9C5;font-family:monospace;font-size:11px;',
+  };
+  console.log('%cWelcome, fellow engineer.', styles.title);
+  console.log(
+    '%cIf you\'re reading this, you\'ve earned an easter egg.\n\n' +
+    '• Press ⌘K (or Ctrl+K) anywhere on the page to open the command palette.\n' +
+    '• Try the Konami code: ↑ ↑ ↓ ↓ ← → ← → B A\n' +
+    '• Hover the four layers of the hero diagram for details.\n\n' +
+    'Built with obsessive restraint. Fonts: Fraunces, Newsreader, JetBrains Mono.\n' +
+    'Architecture: a single static HTML file, deployed on Cloudflare Pages.\n' +
+    'If you want to talk: pinniola@hotmail.it\n',
+    styles.body
+  );
+  console.log('%c— F. Perniola · Senior SWE · Solution Architect · AI Engineer', styles.accent);
+})();
 
-    function setLang(lang) {
-      document.documentElement.setAttribute('data-lang', lang);
-      document.documentElement.setAttribute('lang', lang);
-      localStorage.setItem('fp-lang', lang);
-      btns.forEach(b => b.classList.toggle('active', b.dataset.langBtn === lang));
-    }
-  })();
+// =========================================================================
+// LANGUAGE TOGGLE
+// =========================================================================
+const LANG_KEY = 'fp-lang';
+const langBtns = document.querySelectorAll('[data-lang-btn]');
+function setLang(lang) {
+  document.documentElement.setAttribute('data-lang', lang);
+  document.documentElement.setAttribute('lang', lang);
+  try { localStorage.setItem(LANG_KEY, lang); } catch (e) {}
+  langBtns.forEach(b => b.classList.toggle('active', b.dataset.langBtn === lang));
+}
+try {
+  const saved = localStorage.getItem(LANG_KEY);
+  if (saved === 'en' || saved === 'it') setLang(saved);
+} catch (e) {}
+langBtns.forEach(b => b.addEventListener('click', () => setLang(b.dataset.langBtn)));
 
-  // ============ SCROLL REVEALS ============
-  (function () {
-    const els = document.querySelectorAll('.reveal');
-    if (!('IntersectionObserver' in window)) {
-      els.forEach(el => el.classList.add('in'));
-      return;
-    }
-    const io = new IntersectionObserver((entries) => {
-      entries.forEach(e => {
-        if (e.isIntersecting) {
-          e.target.classList.add('in');
-          io.unobserve(e.target);
+// =========================================================================
+// SCROLL REVEALS
+// =========================================================================
+(function () {
+  const els = document.querySelectorAll('.reveal');
+  if (!('IntersectionObserver' in window)) {
+    els.forEach(el => el.classList.add('in'));
+    return;
+  }
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); }
+    });
+  }, { threshold: 0.12, rootMargin: '0px 0px -60px 0px' });
+  els.forEach(el => io.observe(el));
+})();
+
+// =========================================================================
+// SCROLL PROGRESS + BODY SCROLLED CLASS
+// =========================================================================
+(function () {
+  const bar = document.getElementById('scrollProgress');
+  function update() {
+    const h = document.documentElement;
+    const scrolled = h.scrollTop;
+    const total = h.scrollHeight - h.clientHeight;
+    const pct = total > 0 ? (scrolled / total) * 100 : 0;
+    bar.style.width = pct + '%';
+    document.body.classList.toggle('scrolled', scrolled > 100);
+  }
+  window.addEventListener('scroll', update, { passive: true });
+  update();
+})();
+
+// =========================================================================
+// ACTIVE SECTION (for nav + section counter)
+// =========================================================================
+(function () {
+  const sections = ['top', 'about', 'expertise', 'works', 'experience', 'stack', 'contact'];
+  const navLinks = document.querySelectorAll('[data-nav]');
+  const counters = document.querySelectorAll('[data-counter]');
+
+  function mark(id) {
+    navLinks.forEach(a => a.classList.toggle('active', a.dataset.nav === id));
+    counters.forEach(a => a.classList.toggle('active', a.dataset.counter === id));
+  }
+
+  const observer = new IntersectionObserver((entries) => {
+    // Pick the entry closest to top of viewport that's intersecting
+    let current = null;
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        if (!current || e.boundingClientRect.top < current.boundingClientRect.top) {
+          current = e;
         }
+      }
+    });
+    if (current) mark(current.target.id);
+  }, { rootMargin: '-20% 0px -60% 0px', threshold: 0 });
+  sections.forEach(id => {
+    const el = document.getElementById(id);
+    if (el) observer.observe(el);
+  });
+})();
+
+// =========================================================================
+// STATS COUNT-UP
+// =========================================================================
+(function () {
+  const nums = document.querySelectorAll('.stat__num[data-target]');
+  if (!nums.length) return;
+
+  function animateNumber(el) {
+    const target = parseInt(el.dataset.target, 10);
+    const suffix = el.dataset.suffix || '';
+    const duration = 1400;
+    const start = performance.now();
+    const em = el.querySelector('em');
+    function step(now) {
+      const t = Math.min((now - start) / duration, 1);
+      const eased = 1 - Math.pow(1 - t, 3); // easeOutCubic
+      const v = Math.round(target * eased);
+      if (em) em.textContent = v;
+      else el.textContent = v + suffix;
+      if (t < 1) requestAnimationFrame(step);
+      else { if (em) em.textContent = target; }
+    }
+    requestAnimationFrame(step);
+  }
+
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        animateNumber(e.target);
+        io.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.5 });
+  nums.forEach(n => io.observe(n));
+})();
+
+// =========================================================================
+// HERO DIAGRAM INTERACTIVITY
+// =========================================================================
+(function () {
+  const layers = document.querySelectorAll('[data-layer]');
+  const details = {
+    intelligence: document.getElementById('dd-intelligence'),
+    application: document.getElementById('dd-application'),
+    data: document.getElementById('dd-data'),
+    infrastructure: document.getElementById('dd-infrastructure'),
+  };
+  let active = null;
+  layers.forEach(g => {
+    const name = g.dataset.layer;
+    const detail = details[name];
+    g.addEventListener('mouseenter', () => {
+      g.querySelector('rect').classList.add('active');
+      if (active && active !== detail) active.classList.remove('visible');
+      if (detail) { detail.classList.add('visible'); active = detail; }
+    });
+    g.addEventListener('mouseleave', () => {
+      g.querySelector('rect').classList.remove('active');
+      if (detail) detail.classList.remove('visible');
+      active = null;
+    });
+  });
+})();
+
+// =========================================================================
+// MOUSE-TRACKING GLOW (hero only)
+// =========================================================================
+(function () {
+  let rafId = null;
+  function handle(e) {
+    if (rafId) return;
+    rafId = requestAnimationFrame(() => {
+      const x = (e.clientX / window.innerWidth) * 100;
+      const y = (e.clientY / window.innerHeight) * 100;
+      document.body.style.setProperty('--mouse-x', x + '%');
+      document.body.style.setProperty('--mouse-y', y + '%');
+      rafId = null;
+    });
+  }
+  window.addEventListener('mousemove', handle, { passive: true });
+})();
+
+// =========================================================================
+// COMMAND PALETTE
+// =========================================================================
+(function () {
+  const backdrop = document.getElementById('cmdkBackdrop');
+  const input = document.getElementById('cmdkInput');
+  const list = document.getElementById('cmdkList');
+  const trigger = document.getElementById('cmdkTrigger');
+  const monogram = document.querySelector('.nav__monogram');
+
+  const commands = [
+    // Navigation
+    { group: { it: 'Navigazione', en: 'Navigation' }, icon: '§', label: { it: 'Profilo', en: 'Profile' }, action: () => jump('#about'), hint: '§01' },
+    { group: { it: 'Navigazione', en: 'Navigation' }, icon: '§', label: { it: 'Competenze', en: 'Expertise' }, action: () => jump('#expertise'), hint: '§02' },
+    { group: { it: 'Navigazione', en: 'Navigation' }, icon: '§', label: { it: 'Opere significative', en: 'Signature works' }, action: () => jump('#works'), hint: '§03' },
+    { group: { it: 'Navigazione', en: 'Navigation' }, icon: '§', label: { it: 'Esperienza', en: 'Experience' }, action: () => jump('#experience'), hint: '§04' },
+    { group: { it: 'Navigazione', en: 'Navigation' }, icon: '§', label: { it: 'Stack', en: 'Stack' }, action: () => jump('#stack'), hint: '§05' },
+    { group: { it: 'Navigazione', en: 'Navigation' }, icon: '§', label: { it: 'Formazione', en: 'Education' }, action: () => jump('#education'), hint: '§06' },
+    { group: { it: 'Navigazione', en: 'Navigation' }, icon: '§', label: { it: 'Contatti', en: 'Contact' }, action: () => jump('#contact'), hint: '§07' },
+    // Actions
+    { group: { it: 'Azioni', en: 'Actions' }, icon: '✉', label: { it: 'Copia email', en: 'Copy email' }, action: () => copy('pinniola@hotmail.it', { it: 'Email copiata', en: 'Email copied' }) },
+    { group: { it: 'Azioni', en: 'Actions' }, icon: '↪', label: { it: 'Apri email', en: 'Compose email' }, action: () => { window.location.href = 'mailto:pinniola@hotmail.it'; } },
+    { group: { it: 'Azioni', en: 'Actions' }, icon: '⚑', label: { it: 'Copia link del sito', en: 'Copy site URL' }, action: () => copy(window.location.href, { it: 'Link copiato', en: 'Link copied' }) },
+    // Theme
+    { group: { it: 'Impostazioni', en: 'Settings' }, icon: '⚐', label: { it: 'Cambia lingua (IT ↔ EN)', en: 'Toggle language (IT ↔ EN)' }, action: () => setLang(document.documentElement.getAttribute('data-lang') === 'it' ? 'en' : 'it') },
+    { group: { it: 'Impostazioni', en: 'Settings' }, icon: '▦', label: { it: 'Blueprint Mode (on/off)', en: 'Blueprint Mode (on/off)' }, action: () => document.body.classList.toggle('blueprint-mode') },
+  ];
+
+  let filtered = commands.slice();
+  let selected = 0;
+
+  function render() {
+    const lang = document.documentElement.getAttribute('data-lang') || 'it';
+    let html = '';
+    let lastGroup = null;
+    filtered.forEach((c, i) => {
+      const g = c.group[lang];
+      if (g !== lastGroup) {
+        html += `<div class="cmdk__group-label">${g}</div>`;
+        lastGroup = g;
+      }
+      const cls = 'cmdk__item' + (i === selected ? ' selected' : '');
+      html += `<div class="${cls}" data-idx="${i}">
+        <span class="cmdk__icon">${c.icon}</span>
+        <span class="cmdk__title">${c.label[lang]}</span>
+        ${c.hint ? `<span class="cmdk__hint">${c.hint}</span>` : ''}
+      </div>`;
+    });
+    list.innerHTML = html || `<div class="cmdk__group-label">${lang === 'it' ? 'Nessun risultato' : 'No results'}</div>`;
+    list.querySelectorAll('.cmdk__item').forEach(el => {
+      el.addEventListener('click', () => {
+        execute(parseInt(el.dataset.idx, 10));
       });
-    }, { threshold: 0.12, rootMargin: '0px 0px -60px 0px' });
-    els.forEach(el => io.observe(el));
-  })();
+    });
+  }
+
+  function execute(idx) {
+    const c = filtered[idx];
+    if (!c) return;
+    close();
+    // Small timeout so close animation starts before action
+    setTimeout(() => c.action(), 60);
+  }
+
+  function filter(q) {
+    const lang = document.documentElement.getAttribute('data-lang') || 'it';
+    const query = q.trim().toLowerCase();
+    if (!query) filtered = commands.slice();
+    else filtered = commands.filter(c => c.label[lang].toLowerCase().includes(query));
+    selected = 0;
+    render();
+  }
+
+  function open() {
+    backdrop.classList.add('open');
+    backdrop.setAttribute('aria-hidden', 'false');
+    input.value = '';
+    filter('');
+    setTimeout(() => input.focus(), 50);
+  }
+  function close() {
+    backdrop.classList.remove('open');
+    backdrop.setAttribute('aria-hidden', 'true');
+    input.blur();
+  }
+
+  trigger.addEventListener('click', open);
+  monogram.addEventListener('click', (e) => {
+    // Monogram: single click navigates home; double-click opens palette
+  });
+  input.addEventListener('input', (e) => filter(e.target.value));
+  input.addEventListener('keydown', (e) => {
+    if (e.key === 'ArrowDown') { e.preventDefault(); selected = Math.min(selected + 1, filtered.length - 1); render(); scrollToSelected(); }
+    else if (e.key === 'ArrowUp') { e.preventDefault(); selected = Math.max(selected - 1, 0); render(); scrollToSelected(); }
+    else if (e.key === 'Enter') { e.preventDefault(); execute(selected); }
+    else if (e.key === 'Escape') { e.preventDefault(); close(); }
+  });
+  backdrop.addEventListener('click', (e) => { if (e.target === backdrop) close(); });
+
+  function scrollToSelected() {
+    const el = list.querySelector('.cmdk__item.selected');
+    if (el) el.scrollIntoView({ block: 'nearest' });
+  }
+
+  window.addEventListener('keydown', (e) => {
+    if ((e.metaKey || e.ctrlKey) && e.key.toLowerCase() === 'k') {
+      e.preventDefault();
+      if (backdrop.classList.contains('open')) close(); else open();
+    }
+    if (e.key === '/' && !backdrop.classList.contains('open') && document.activeElement.tagName !== 'INPUT') {
+      e.preventDefault(); open();
+    }
+  });
+
+  function jump(hash) {
+    const el = document.querySelector(hash);
+    if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }
+
+  async function copy(text, label) {
+    try {
+      await navigator.clipboard.writeText(text);
+      showToast(label[document.documentElement.getAttribute('data-lang') || 'it']);
+    } catch (e) { showToast('Copy failed'); }
+  }
+
+  // Re-render on language change so labels update if palette is open
+  langBtns.forEach(b => b.addEventListener('click', () => { if (backdrop.classList.contains('open')) render(); }));
+})();
+
+// =========================================================================
+// TOAST
+// =========================================================================
+const toastEl = document.getElementById('toast');
+let toastTimer = null;
+function showToast(text) {
+  toastEl.textContent = text;
+  toastEl.classList.add('visible');
+  clearTimeout(toastTimer);
+  toastTimer = setTimeout(() => toastEl.classList.remove('visible'), 2200);
+}
+
+// =========================================================================
+// KONAMI CODE → BLUEPRINT MODE
+// =========================================================================
+(function () {
+  const sequence = ['ArrowUp','ArrowUp','ArrowDown','ArrowDown','ArrowLeft','ArrowRight','ArrowLeft','ArrowRight','b','a'];
+  let buffer = [];
+  window.addEventListener('keydown', (e) => {
+    const k = e.key.length === 1 ? e.key.toLowerCase() : e.key;
+    buffer.push(k);
+    if (buffer.length > sequence.length) buffer.shift();
+    if (buffer.length === sequence.length && buffer.every((v, i) => v === sequence[i])) {
+      document.body.classList.toggle('blueprint-mode');
+      const active = document.body.classList.contains('blueprint-mode');
+      showToast(active
+        ? (document.documentElement.getAttribute('data-lang') === 'it' ? 'Blueprint Mode attivato' : 'Blueprint Mode engaged')
+        : (document.documentElement.getAttribute('data-lang') === 'it' ? 'Blueprint Mode disattivato' : 'Blueprint Mode off'));
+      buffer = [];
+    }
+  });
+})();
+
 </script>
 </body>
 </html>
