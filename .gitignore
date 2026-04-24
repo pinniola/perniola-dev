@@ -1,0 +1,15 @@
+# Personal / NDA-protected documentation
+CONTEXT.md
+CLAUDE.md
+.cursorrules
+cv/
+
+# CV source files (personal)
+CV_Perniola_Francesco_*
+build_cv*.js
+cv_blueprint*.html
+
+# Build artifacts
+node_modules/
+*.log
+.DS_Store
