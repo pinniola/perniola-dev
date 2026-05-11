@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Francesco Perniola — Senior Software Engineer · Solution Architect · AI Engineer</title>
-<meta name="description" content="Francesco Perniola — Senior Software Engineer, Solution Architect e AI Engineer. Architetture di sistemi production-grade all'intersezione tra software, AI e infrastrutture distribuite.">
+<meta name="description" content="Francesco Perniola — Senior Software Engineer, Solution Architect e AI Engineer. Architetture software e AI integrata in prodotti che girano in produzione, soprattutto on-premise.">
 <meta name="author" content="Francesco Perniola">
 
 <!-- Canonical URL: aggiorna dopo aver configurato il dominio finale -->
@@ -15,7 +15,7 @@
 <meta property="og:url" content="https://perniola.pages.dev/">
 <meta property="og:site_name" content="Francesco Perniola">
 <meta property="og:title" content="Francesco Perniola — Senior Software Engineer · Solution Architect · AI Engineer">
-<meta property="og:description" content="Architetture di sistemi production-grade all'intersezione tra software, AI e infrastrutture distribuite.">
+<meta property="og:description" content="Architetture software e AI integrata in prodotti che girano in produzione, soprattutto on-premise.">
 <meta property="og:image" content="https://perniola.pages.dev/og-image.png">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
@@ -26,7 +26,7 @@
 <!-- Twitter / X -->
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="Francesco Perniola — Senior Software Engineer · Solution Architect · AI Engineer">
-<meta name="twitter:description" content="Architetture di sistemi production-grade all'intersezione tra software, AI e infrastrutture distribuite.">
+<meta name="twitter:description" content="Architetture software e AI integrata in prodotti che girano in produzione, soprattutto on-premise.">
 <meta name="twitter:image" content="https://perniola.pages.dev/og-image.png">
 
 <!-- Favicon -->
@@ -541,6 +541,12 @@ input:focus-visible {
   font-variation-settings: "SOFT" 100;
 }
 
+.hero__cta-group {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 1.6rem 2rem;
+}
 .hero__cta {
   display: inline-flex;
   align-items: center;
@@ -548,19 +554,35 @@ input:focus-visible {
   font-family: var(--font-mono);
   font-size: 0.7rem;
   letter-spacing: 0.25em;
-  color: var(--fg-muted);
   text-transform: uppercase;
   cursor: pointer;
-  transition: color 0.3s ease, gap 0.3s ease;
+  transition: color 0.3s ease, gap 0.3s ease, background 0.3s ease, border-color 0.3s ease;
 }
-.hero__cta:hover { color: var(--fg); gap: 1.2rem; }
 .hero__cta::after {
   content: "→";
   font-size: 0.9rem;
   color: var(--accent);
   transition: transform 0.3s ease;
 }
+.hero__cta:hover { gap: 1.2rem; }
 .hero__cta:hover::after { transform: translateX(4px); }
+
+.hero__cta--primary {
+  color: var(--bg);
+  background: var(--accent);
+  padding: 0.85rem 1.25rem;
+  border: 1px solid var(--accent);
+  border-radius: 2px;
+}
+.hero__cta--primary::after { color: var(--bg); }
+.hero__cta--primary:hover {
+  background: var(--accent-bright);
+  border-color: var(--accent-bright);
+  color: var(--bg);
+}
+
+.hero__cta--ghost { color: var(--fg-muted); }
+.hero__cta--ghost:hover { color: var(--fg); }
 
 /* =========================================================================
    HERO DIAGRAM (interactive SVG)
@@ -1738,9 +1760,8 @@ body.blueprint-mode .blueprint-indicator {
     <div>
       <div class="hero__meta">
         <span>Santeramo in Colle · IT</span>
-        <span>EST. 1989</span>
-        <span class="dot-live" data-lang="it">Disponibile per progetti selezionati</span>
-        <span class="dot-live" data-lang="en">Available for selected projects</span>
+        <span class="dot-live" data-lang="it">Aperto a nuove opportunità</span>
+        <span class="dot-live" data-lang="en">Open to new opportunities</span>
       </div>
       <h1 class="hero__name">
         Francesco<br>
@@ -1750,13 +1771,19 @@ body.blueprint-mode .blueprint-indicator {
         <span>Senior Software Engineer</span><span>Solution Architect</span><span>AI Engineer</span>
       </div>
       <p class="hero__tagline">
-        <span data-lang="it">Senior Software Engineer. Progetto sistemi che devono funzionare sotto vincoli reali — <em>CPU-only</em>, <em>on-premise</em>, clienti in produzione, deadline non negoziabili. È lì che si vede se un'architettura regge davvero.</span>
-        <span data-lang="en">Senior Software Engineer. I design systems that must work under real-world constraints — <em>CPU-only</em>, <em>on-premise</em>, clients in production, non-negotiable deadlines. That's where you see whether an architecture truly holds up.</span>
+        <span data-lang="it">Faccio architettura software e AI integrata in prodotti che girano in produzione. Il grosso del lavoro è su infrastruttura on-premise, con vincoli concreti di hardware e di tempi di consegna.</span>
+        <span data-lang="en">I work on software architecture and AI features embedded in production products. Most of what I do runs on on-premise infrastructure, with real constraints on hardware and delivery timelines.</span>
       </p>
-      <a href="#about" class="hero__cta">
-        <span data-lang="it">Vai al profilo</span>
-        <span data-lang="en">Go to profile</span>
-      </a>
+      <div class="hero__cta-group">
+        <a href="mailto:pinniola@hotmail.it" class="hero__cta hero__cta--primary">
+          <span data-lang="it">Scrivimi</span>
+          <span data-lang="en">Get in touch</span>
+        </a>
+        <a href="#about" class="hero__cta hero__cta--ghost">
+          <span data-lang="it">Vedi il profilo</span>
+          <span data-lang="en">See the profile</span>
+        </a>
+      </div>
     </div>
 
     <!-- ARCHITECTURE DIAGRAM (interactive) -->
@@ -1828,8 +1855,8 @@ body.blueprint-mode .blueprint-indicator {
       <div class="diagram-detail" id="dd-intelligence">
         <h4 data-lang="it">L.04 INTELLIGENCE</h4>
         <h4 data-lang="en">L.04 INTELLIGENCE</h4>
-        <p data-lang="it">Feature LLM production-grade — RAG, agenti, chatbot domain-specific — consegnate ai clienti. In parallelo, sviluppo reti neurali R&amp;D per medical imaging e computer vision industriale.</p>
-        <p data-lang="en">Production-grade LLM features — RAG, agents, domain-specific chatbots — embedded in client products. In parallel, R&amp;D neural networks for medical imaging and industrial computer vision.</p>
+        <p data-lang="it">Feature LLM integrate nei prodotti che consegniamo ai clienti: RAG, agenti, chatbot domain-specific. In parallelo, reti neurali in R&amp;D per medical imaging e computer vision industriale.</p>
+        <p data-lang="en">LLM features embedded in the products we deliver to clients: RAG, agents, domain-specific chatbots. On the side, R&amp;D neural networks for medical imaging and industrial computer vision.</p>
       </div>
       <div class="diagram-detail" id="dd-application">
         <h4>L.03 APPLICATION</h4>
@@ -1863,11 +1890,11 @@ body.blueprint-mode .blueprint-indicator {
     </div>
     <div class="profile reveal">
       <div>
-        <p data-lang="it">Progetto e costruisco sistemi software che vivono in produzione operativa. Guido un team di ~10 ingegneri su prodotti a TRL 6–9 — dai sistemi IoT industriali event-driven alle piattaforme smart city multi-modulo, fino all'integrazione LLM production-grade nei prodotti consegnati ai clienti. Per me l'architettura non è un documento a parte: è la forma che prende il codice quando smette di essere un prototipo.</p>
-        <p data-lang="it">In parallelo, faccio R&amp;D in deep learning e computer vision — reti neurali per la segmentazione di masse tumorali da scansioni CT, classificazione delle condizioni del manto stradale — con pipeline DICOM scritte da zero in PyTorch e TensorFlow. Il mio centro di gravità è l'infrastruttura on-premise dove software, AI e sistemi distribuiti devono convivere come un'unica cosa, non come moduli separati.</p>
+        <p data-lang="it">Sono Senior Software Engineer in Dyrecta Lab dal 2021. Guido un team di una decina di sviluppatori su prodotti software a TRL 6-9: piattaforme IoT industriali, sistemi smart city multi-modulo, feature LLM integrate nei software che consegniamo ai clienti. Mi occupo di architettura, selezione dello stack, HLD/LLD, code review e di buona parte dell'interfaccia con PM e clienti finali.</p>
+        <p data-lang="it">In parallelo seguo attività di ricerca su deep learning e computer vision: reti neurali per detection e segmentazione di masse tumorali da scansioni CT, classificazione delle condizioni del manto stradale. Pipeline DICOM scritte da zero, PyTorch e TensorFlow. La maggior parte del lavoro avviene su infrastruttura on-premise, dove software, AI e sistemi distribuiti vivono nello stesso ambiente.</p>
 
-        <p data-lang="en">I design and build software systems that run in operational production. I lead a team of ~10 engineers on TRL 6–9 products — from event-driven industrial IoT systems to multi-module smart city platforms, including production-grade LLM integrations shipped inside client products. For me, architecture isn't a separate document: it's the shape the code takes once it stops being a prototype.</p>
-        <p data-lang="en">In parallel, I run R&amp;D in deep learning and computer vision — neural networks for tumor detection and segmentation from CT scans, road surface condition classification — with DICOM pipelines written from scratch in PyTorch and TensorFlow. My center of gravity is the on-premise infrastructure where software, AI, and distributed systems must live as one, not as separate modules.</p>
+        <p data-lang="en">I'm a Senior Software Engineer at Dyrecta Lab since 2021. I lead a team of about ten engineers on TRL 6-9 software products: industrial IoT platforms, multi-module smart city systems, LLM features embedded in the software we deliver to clients. I cover architecture, stack selection, HLD/LLD, code review, and a good chunk of the interaction with PMs and end clients.</p>
+        <p data-lang="en">On the side I run R&amp;D activities on deep learning and computer vision: neural networks for tumor detection and segmentation from CT scans, road surface classification. DICOM pipelines written from scratch, PyTorch and TensorFlow. Most of this work runs on on-premise infrastructure, where software, AI and distributed systems share the same environment.</p>
       </div>
       <dl class="profile__aside">
         <dt data-lang="it">Ruoli</dt>
@@ -1938,19 +1965,19 @@ body.blueprint-mode .blueprint-indicator {
           <span data-lang="it">in produzione</span>
           <span data-lang="en">in production</span>
         </h3>
-        <p class="exp-card__desc" data-lang="it">Funzionalità AI-powered consegnate ai clienti, non prototipi. Architettura, governance e integrazione profonda nei prodotti.</p>
-        <p class="exp-card__desc" data-lang="en">AI-powered features shipped to clients, not prototypes. Architecture, governance, and deep product integration.</p>
+        <p class="exp-card__desc" data-lang="it">Funzionalità AI integrate nei prodotti che consegniamo ai clienti. Architettura, governance, integrazione profonda nei prodotti.</p>
+        <p class="exp-card__desc" data-lang="en">AI features integrated in the products we ship to clients. Architecture, governance, deep product integration.</p>
         <ul class="exp-card__list">
-          <li data-lang="it">Sistemi RAG production-grade con vector store embedded</li>
+          <li data-lang="it">Sistemi RAG con vector store embedded</li>
           <li data-lang="it">Agenti LLM con tool calling e orchestrazione multi-step</li>
-          <li data-lang="it">Chatbot domain-specific — ogni cliente vuole che "suoni come casa sua", quindi i guardrail li costruisco sul vocabolario e sulle eccezioni del suo dominio, non su liste generiche</li>
+          <li data-lang="it">Chatbot domain-specific con guardrail costruiti sul vocabolario e sui casi limite del dominio del cliente</li>
           <li data-lang="it">Copilot interni come acceleratori di sviluppo</li>
-          <li data-lang="it">Prompt engineering per sviluppo, controllo e governance</li>
+          <li data-lang="it">Prompt engineering per sviluppo, controllo, governance</li>
           <li data-lang="it">Integrazione di LLM embedded in piattaforme on-premise</li>
 
-          <li data-lang="en">Production-grade RAG systems with embedded vector stores</li>
+          <li data-lang="en">RAG systems with embedded vector stores</li>
           <li data-lang="en">LLM agents with tool calling and multi-step orchestration</li>
-          <li data-lang="en">Domain-specific chatbots — each client wants theirs to "sound like home", so I build guardrails on their vocabulary and edge cases, not on generic lists</li>
+          <li data-lang="en">Domain-specific chatbots with guardrails built on the client's vocabulary and edge cases</li>
           <li data-lang="en">Internal copilots as development accelerators</li>
           <li data-lang="en">Prompt engineering for development, control, governance</li>
           <li data-lang="en">Embedded LLM integration in on-premise platforms</li>
@@ -1965,22 +1992,22 @@ body.blueprint-mode .blueprint-indicator {
           <span data-lang="it">&amp; Computer Vision</span>
           <span data-lang="en">&amp; Computer Vision</span>
         </h3>
-        <p class="exp-card__desc" data-lang="it">Reti neurali per medical imaging e monitoraggio di infrastrutture fisiche. Pipeline custom, niente MONAI.</p>
-        <p class="exp-card__desc" data-lang="en">Neural networks for medical imaging and physical-infrastructure monitoring. Custom pipelines, no MONAI.</p>
+        <p class="exp-card__desc" data-lang="it">Reti neurali per medical imaging e monitoraggio di infrastrutture fisiche. Pipeline custom scritte da zero.</p>
+        <p class="exp-card__desc" data-lang="en">Neural networks for medical imaging and physical-infrastructure monitoring. Custom pipelines written from scratch.</p>
         <ul class="exp-card__list">
-          <li data-lang="it">Tumor detection &amp; segmentation da scansioni CT</li>
+          <li data-lang="it">Tumor detection e segmentation da scansioni CT</li>
           <li data-lang="it">Classificazione delle condizioni del manto stradale</li>
-          <li data-lang="it">Pipeline DICOM custom end-to-end</li>
-          <li data-lang="it">Training su hardware dedicato, inferenza on-premise</li>
-          <li data-lang="it">PyTorch e TensorFlow (entrambi in produzione di ricerca)</li>
-          <li data-lang="it">Integrazione dei modelli direttamente nelle piattaforme target</li>
+          <li data-lang="it">Pipeline DICOM end-to-end scritte da zero</li>
+          <li data-lang="it">Training su GPU dedicate, inferenza on-premise</li>
+          <li data-lang="it">PyTorch e TensorFlow</li>
+          <li data-lang="it">Modelli integrati direttamente nelle piattaforme target</li>
 
-          <li data-lang="en">Tumor detection &amp; segmentation from CT scans</li>
+          <li data-lang="en">Tumor detection and segmentation from CT scans</li>
           <li data-lang="en">Road surface condition classification</li>
-          <li data-lang="en">Custom end-to-end DICOM pipelines</li>
-          <li data-lang="en">Training on dedicated hardware, on-premise inference</li>
-          <li data-lang="en">PyTorch and TensorFlow (both used in production R&amp;D pipelines)</li>
-          <li data-lang="en">Model integration directly into target platforms</li>
+          <li data-lang="en">End-to-end DICOM pipelines written from scratch</li>
+          <li data-lang="en">Training on dedicated GPUs, on-premise inference</li>
+          <li data-lang="en">PyTorch and TensorFlow</li>
+          <li data-lang="en">Models integrated directly into target platforms</li>
         </ul>
         <div class="exp-card__meta" data-lang="it">Scope · R&amp;D · on-premise deploy</div>
         <div class="exp-card__meta" data-lang="en">Scope · R&amp;D · on-premise deploy</div>
@@ -1992,23 +2019,23 @@ body.blueprint-mode .blueprint-indicator {
           <span data-lang="it">Architecture &amp; Tech Lead</span>
           <span data-lang="en">Architecture &amp; Tech Lead</span>
         </h3>
-        <p class="exp-card__desc" data-lang="it">Dal requisito al deploy. Guida tecnica di un team di ~10 persone e interfaccia diretta con stakeholder business.</p>
-        <p class="exp-card__desc" data-lang="en">From requirement to deploy. Technical leadership of a ~10-person team and direct interface with business stakeholders.</p>
+        <p class="exp-card__desc" data-lang="it">Dal requisito al deploy. Guida tecnica di un team di una decina di persone e interfaccia diretta con gli stakeholder di business.</p>
+        <p class="exp-card__desc" data-lang="en">From requirement to deploy. Technical leadership of a team of about ten engineers and direct interface with business stakeholders.</p>
         <ul class="exp-card__list">
           <li data-lang="it">Analisi dei requisiti e selezione dello stack</li>
           <li data-lang="it">High-Level Design e Low-Level Design</li>
           <li data-lang="it">Progettazione algoritmica e report di sviluppo</li>
-          <li data-lang="it">Quando il cliente deve scegliere tra alternative, non gli do una raccomandazione sola: preparo un confronto con Pro, Contro e "quando è la scelta giusta" per ciascuna opzione, incluso il costo totale nel tempo</li>
-          <li data-lang="it">Stima effort (gg/uomo) su team multi-ruolo</li>
-          <li data-lang="it">Gestione di ~10 sviluppatori · code review · mentoring</li>
+          <li data-lang="it">Advisory client-facing su alternative tecniche: confronto multi-opzione con Pro, Contro, scenario d'uso e TCO per ciascuna alternativa</li>
+          <li data-lang="it">Stima effort in gg/uomo su team multi-ruolo</li>
+          <li data-lang="it">Gestione di ~10 sviluppatori, code review, mentoring</li>
           <li data-lang="it">Interfaccia con PM, Project Management Team, clienti</li>
 
           <li data-lang="en">Requirements analysis and stack selection</li>
           <li data-lang="en">High-Level Design and Low-Level Design</li>
           <li data-lang="en">Algorithm design and development reports</li>
-          <li data-lang="en">When the client has to choose between alternatives, I don't hand over a single recommendation: I prepare a comparison with Pros, Cons, and "when it's the right fit" for each option, including total cost of ownership</li>
-          <li data-lang="en">Effort estimation (person-days) across multi-role teams</li>
-          <li data-lang="en">Leading ~10 engineers · code review · mentoring</li>
+          <li data-lang="en">Client-facing advisory on technical alternatives: multi-option comparison with Pros, Cons, use-case scenario and TCO for each option</li>
+          <li data-lang="en">Effort estimation in person-days across multi-role teams</li>
+          <li data-lang="en">Leading ~10 engineers, code review, mentoring</li>
           <li data-lang="en">Interface with PM, Project Management Team, clients</li>
         </ul>
         <div class="exp-card__meta" data-lang="it">Scope · end-to-end · client-facing</div>
@@ -2018,11 +2045,11 @@ body.blueprint-mode .blueprint-indicator {
       <article class="exp-card">
         <div class="exp-card__num">E.04 · L.04 INTELLIGENCE</div>
         <h3 class="exp-card__title"><em>Applied ML</em>
-          <span data-lang="it">production-grade</span>
-          <span data-lang="en">production-grade</span>
+          <span data-lang="it">in produzione</span>
+          <span data-lang="en">in production</span>
         </h3>
-        <p class="exp-card__desc" data-lang="it">ML pragmatico che gira in produzione reale — con vincoli CPU-only e requisiti di latenza bassi.</p>
-        <p class="exp-card__desc" data-lang="en">Pragmatic ML running in real production — with CPU-only constraints and tight latency requirements.</p>
+        <p class="exp-card__desc" data-lang="it">ML pragmatico che gira in produzione, spesso con vincoli CPU-only e requisiti di latenza stretti.</p>
+        <p class="exp-card__desc" data-lang="en">Pragmatic ML running in production, often under CPU-only constraints and tight latency requirements.</p>
         <ul class="exp-card__list">
           <li data-lang="it">Anomaly detection statistica multi-sensore</li>
           <li data-lang="it">Baseline learning passivo con calibrazione continua</li>
@@ -2048,22 +2075,22 @@ body.blueprint-mode .blueprint-indicator {
           <span data-lang="it">&amp; Migration Safety</span>
           <span data-lang="en">&amp; Migration Safety</span>
         </h3>
-        <p class="exp-card__desc" data-lang="it">Disciplina formale di risk &amp; estimation governance. Ogni decisione tecnica client-facing è accompagnata da un framework che espone rischi, assunzioni e varianza — non da promesse.</p>
-        <p class="exp-card__desc" data-lang="en">Formal risk &amp; estimation governance discipline. Every client-facing technical decision comes with a framework that exposes risks, assumptions, and variance — not promises.</p>
+        <p class="exp-card__desc" data-lang="it">Pratica formale di risk register e stima con varianza. Ogni decisione tecnica che arriva al cliente è corredata di rischi, assunzioni e forchetta di tempo espliciti.</p>
+        <p class="exp-card__desc" data-lang="en">Formal practice of risk register and variance-based estimation. Every technical decision delivered to the client comes with explicit risks, assumptions, and time range.</p>
         <ul class="exp-card__list">
-          <li data-lang="it">Risk register formale con matrice Impatto × Probabilità × Mitigazione</li>
-          <li data-lang="it">Stime con varianza esplicita e forchetta motivata (min–max)</li>
-          <li data-lang="it">Assunzioni documentate con trigger espliciti di re-scope — se un'assunzione decade, il cliente sa subito che la stima non tiene più e si rinegozia, non si scopre in ritardo</li>
-          <li data-lang="it">Migration safety patterns: Adapter layer, Shadow testing, contract preservation</li>
+          <li data-lang="it">Risk register con matrice Impatto × Probabilità × Mitigazione</li>
+          <li data-lang="it">Stime con varianza esplicita e forchetta motivata (min-max)</li>
+          <li data-lang="it">Assunzioni documentate con trigger espliciti di re-scope: alla decadenza di un'assunzione la stima va rinegoziata</li>
+          <li data-lang="it">Migration safety pattern: Adapter layer, Shadow testing, contract preservation</li>
           <li data-lang="it">Gap analysis pre-implementazione con logiche di fallback documentate</li>
-          <li data-lang="it">Articolazione in cantieri separati (stabilità/refactoring · conformità · evolutive)</li>
+          <li data-lang="it">Articolazione del lavoro in cantieri separati (stabilità e refactoring, conformità, evolutive)</li>
 
-          <li data-lang="en">Formal risk register with Impact × Probability × Mitigation matrix</li>
-          <li data-lang="en">Estimates with explicit variance and justified range (min–max)</li>
-          <li data-lang="en">Documented assumptions with explicit re-scope triggers — if an assumption breaks, the client knows immediately that the estimate no longer holds and we renegotiate, instead of discovering it too late</li>
+          <li data-lang="en">Risk register with Impact × Probability × Mitigation matrix</li>
+          <li data-lang="en">Estimates with explicit variance and justified range (min-max)</li>
+          <li data-lang="en">Documented assumptions with explicit re-scope triggers: when an assumption no longer holds, the estimate is renegotiated</li>
           <li data-lang="en">Migration safety patterns: Adapter layer, Shadow testing, contract preservation</li>
           <li data-lang="en">Pre-implementation gap analysis with documented fallback logic</li>
-          <li data-lang="en">Work stream partitioning (stability/refactoring · compliance · evolutionary features)</li>
+          <li data-lang="en">Work split into separate streams (stability and refactoring, compliance, evolutionary features)</li>
         </ul>
         <div class="exp-card__meta" data-lang="it">Scope · client-facing assessment · pre-implementation</div>
         <div class="exp-card__meta" data-lang="en">Scope · client-facing assessment · pre-implementation</div>
@@ -2101,8 +2128,8 @@ body.blueprint-mode .blueprint-indicator {
             <span data-lang="en">Smart City &amp; Mobility Platform</span>
           </h3>
           <div class="work__role">SOLUTION ARCHITECT · TECH LEAD</div>
-          <p class="work__desc" data-lang="it">MVP con un vincolo che ha guidato ogni scelta tecnica: deve partire su una macchina di sviluppo da 16 GB senza GPU, con un solo docker-compose. Ho scartato LSTM e Random Forest in favore di XGBoost su CPU, scelto Mosquitto come bus di comunicazione tra moduli invece di RabbitMQ per tenere leggera l'infrastruttura, e tenuto Python solo per la parte ML — tutto il resto è TypeScript, così il team non cambia linguaggio a metà giornata.</p>
-          <p class="work__desc" data-lang="en">An MVP built around one constraint that drove every technical choice: it had to run on a 16 GB dev machine with no GPU, via a single docker-compose. I dropped LSTM and Random Forest in favor of CPU-bound XGBoost, picked Mosquitto over RabbitMQ as the inter-module bus to keep the infrastructure light, and kept Python only for the ML layer — everything else is TypeScript, so the team doesn't switch languages mid-day.</p>
+          <p class="work__desc" data-lang="it">Vincolo dichiarato dal cliente: la piattaforma deve partire su una macchina di sviluppo da 16 GB senza GPU, con un singolo docker-compose. Ho scelto XGBoost al posto di LSTM e Random Forest per stare dentro il budget CPU, Mosquitto al posto di RabbitMQ per non aggiungere un broker pesante, e ho tenuto Python solo per la parte ML, mantenendo TypeScript sul resto dello stack per non costringere il team a cambiare linguaggio durante la giornata.</p>
+          <p class="work__desc" data-lang="en">Constraint set by the client: the platform had to boot on a 16 GB dev machine with no GPU, via a single docker-compose. I picked XGBoost over LSTM and Random Forest to fit inside the CPU budget, Mosquitto over RabbitMQ to avoid adding a heavyweight broker, and kept Python only for the ML layer, leaving TypeScript on the rest of the stack so the team wouldn't have to switch languages mid-day.</p>
         </div>
         <div class="work__tech">
           <div class="work__tech-label">STACK</div>
@@ -2125,8 +2152,8 @@ body.blueprint-mode .blueprint-indicator {
             <span data-lang="en">Industrial Safety IoT System</span>
           </h3>
           <div class="work__role">SOLUTION ARCHITECT</div>
-          <p class="work__desc" data-lang="it">Il cliente voleva dimezzare il numero di sensori su strutture già installate senza perdere copertura di monitoraggio. La sfida: zero modifiche al firmware, zero costi hardware aggiuntivi. Ho spostato l'intelligenza nel cloud — finestra scorrevole per correlare messaggi asincroni, voting spaziale per distinguere urti reali da vibrazioni accidentali, triangolazione per localizzare l'impatto anche su montanti ora privi di sensore diretto.</p>
-          <p class="work__desc" data-lang="en">The client wanted to halve the sensor count on already-installed structures without losing monitoring coverage. The constraint: zero firmware changes, zero additional hardware cost. I moved the intelligence to the cloud — sliding window to correlate asynchronous messages, spatial voting to tell real impacts from accidental vibrations, triangulation to locate impacts even on struts now missing a direct sensor.</p>
+          <p class="work__desc" data-lang="it">Il cliente voleva dimezzare il numero di sensori sulle strutture già installate, senza modifiche al firmware e senza aggiungere hardware. Ho spostato la logica nel cloud: finestra scorrevole sui messaggi asincroni dei sensori per correlarli, voting spaziale per distinguere urti reali da vibrazioni accidentali, triangolazione logaritmica per stimare la posizione dell'impatto anche dove non c'è più un sensore diretto.</p>
+          <p class="work__desc" data-lang="en">The client wanted to halve the sensor count on already-installed structures, with no firmware changes and no extra hardware. I moved the logic to the cloud: sliding window over asynchronous sensor messages for correlation, spatial voting to tell real impacts from accidental vibrations, logarithmic triangulation to estimate impact position even where a direct sensor is no longer present.</p>
         </div>
         <div class="work__tech">
           <div class="work__tech-label">STACK</div>
@@ -2134,6 +2161,38 @@ body.blueprint-mode .blueprint-indicator {
             <span>Python</span><span>Django</span><span>Celery</span>
             <span>Redis</span><span>PostgreSQL</span>
             <span>Event-driven</span><span>Digital Twin</span>
+          </div>
+        </div>
+      </article>
+
+      <article class="work">
+        <div class="work__idx">
+          <strong>A.05</strong>
+          2026 —
+        </div>
+        <div>
+          <h3 class="work__title">
+            <span data-lang="it">Linee Guida Operative per lo Sviluppo Software</span>
+            <span data-lang="en">Software Development Operating Guidelines</span>
+          </h3>
+          <div class="work__role">METHODOLOGY ARCHITECT · AI GOVERNANCE</div>
+          <p class="work__desc" data-lang="it">Documento aziendale che formalizza l'SDLC interno. Definisce una matrice di responsabilità a quattro ruoli (Analisi, ML, Sistemi, Sviluppo), tre macro-workflow distinti (Kanban poi Scrum per MVP-to-production, Water-Scrum-Fall per la rifattorizzazione del legacy, Day-2 operations), la mappa degli agenti AI usabili in ciascuna fase e un Knowledge Management aziendale costruito su un RAG che indicizza tutti i Report di Esecuzione.</p>
+          <p class="work__desc" data-lang="en">Internal company document that formalizes the SDLC. Defines a four-role responsibility matrix (Analysis, ML, Systems, Development), three distinct macro-workflows (Kanban into Scrum for MVP-to-production, Water-Scrum-Fall for legacy refactoring, Day-2 operations), the map of AI agents usable in each phase, and a corporate Knowledge Management system built on a RAG that indexes all Execution Reports.</p>
+        </div>
+        <div class="work__tech">
+          <div class="work__tech-label">
+            <span data-lang="it">AMBITO</span>
+            <span data-lang="en">SCOPE</span>
+          </div>
+          <div class="work__tech-list">
+            <span data-lang="it">Responsibility Matrix</span>
+            <span data-lang="en">Responsibility Matrix</span>
+            <span>SDLC</span>
+            <span>AI Governance</span>
+            <span data-lang="it">RAG aziendale</span>
+            <span data-lang="en">Corporate RAG</span>
+            <span>LlamaIndex</span><span>Pinecone</span>
+            <span>HLD / LLD</span>
           </div>
         </div>
       </article>
@@ -2149,8 +2208,8 @@ body.blueprint-mode .blueprint-indicator {
             <span data-lang="en">Production LLM features in client products</span>
           </h3>
           <div class="work__role">AI ENGINEER · ARCHITECT</div>
-          <p class="work__desc" data-lang="it">Sistemi RAG, agenti con tool calling, chatbot domain-specific e copilot interni integrati dentro prodotti software consegnati ai clienti. Prompt engineering per sviluppo, controllo e governance di AI in pipeline reali.</p>
-          <p class="work__desc" data-lang="en">RAG systems, agents with tool calling, domain-specific chatbots, and internal copilots embedded inside software products delivered to clients. Prompt engineering for development, control, and governance of AI in real pipelines.</p>
+          <p class="work__desc" data-lang="it">Sistemi RAG, agenti con tool calling, chatbot domain-specific e copilot interni integrati nei prodotti software che consegniamo ai clienti. Prompt engineering sia per lo sviluppo sia per la governance dell'AI dentro le pipeline.</p>
+          <p class="work__desc" data-lang="en">RAG systems, agents with tool calling, domain-specific chatbots, and internal copilots embedded in the software products we deliver to clients. Prompt engineering both for development and for AI governance inside the pipelines.</p>
         </div>
         <div class="work__tech">
           <div class="work__tech-label">
@@ -2179,8 +2238,8 @@ body.blueprint-mode .blueprint-indicator {
             <span data-lang="en">Medical Imaging — Tumor Segmentation</span>
           </h3>
           <div class="work__role">ML RESEARCH ENGINEER</div>
-          <p class="work__desc" data-lang="it">Reti neurali per detection e segmentazione di masse tumorali da scansioni CT. Pipeline DICOM scritte da zero, training su hardware dedicato, inferenza integrata nella piattaforma target on-premise. Parallelamente: classificazione del manto stradale.</p>
-          <p class="work__desc" data-lang="en">Neural networks for tumor detection and segmentation from CT scans. DICOM pipelines written from scratch, training on dedicated hardware, inference embedded in the target on-premise platform. In parallel: road surface classification.</p>
+          <p class="work__desc" data-lang="it">Reti neurali per detection e segmentazione di masse tumorali da scansioni CT. Pipeline DICOM scritte da zero, training su hardware dedicato GPU, inferenza integrata nella piattaforma target on-premise. In parallelo ho lavorato anche sulla classificazione del manto stradale.</p>
+          <p class="work__desc" data-lang="en">Neural networks for tumor detection and segmentation from CT scans. DICOM pipelines written from scratch, training on dedicated GPU hardware, inference embedded in the target on-premise platform. On the side I also worked on road surface classification.</p>
         </div>
         <div class="work__tech">
           <div class="work__tech-label">STACK</div>
@@ -2204,8 +2263,8 @@ body.blueprint-mode .blueprint-indicator {
             <span data-lang="en">Retail Digital Twin Platform</span>
           </h3>
           <div class="work__role">SOLUTION ARCHITECT · TECH LEAD</div>
-          <p class="work__desc" data-lang="it">Il sistema nasceva shelf-centric — "lo scaffale è vuoto, riempilo". Ma in GDO questo non basta: serve sapere se un prodotto sta invadendo lo spazio di un altro, se la posizione effettiva corrisponde al planogramma. Ho portato il modello a product-shelf-centric, con allocazioni per GTIN/EAN, mismatch detection e OSA calcolato a livello di singola referenza. Multi-tenancy con Row-Level Security perché il cliente finale gestisce store di insegne diverse.</p>
-          <p class="work__desc" data-lang="en">The system started shelf-centric — "the shelf is empty, refill it". But in large-scale retail that's not enough: you need to know if a product is invading another's space, if actual positioning matches the planogram. I moved the model to product-shelf-centric, with per-GTIN/EAN allocations, mismatch detection, and OSA computed at single-SKU granularity. Multi-tenancy with Row-Level Security because the end client runs stores across different banners.</p>
+          <p class="work__desc" data-lang="it">Il sistema nasceva shelf-centric: lo scaffale è vuoto, va rifornito. In GDO questa granularità non basta. Bisogna sapere se un prodotto sta occupando lo spazio di un altro e se la posizione reale corrisponde al planogramma. Ho riportato il modello dati a livello product-shelf, con allocazioni per GTIN/EAN, mismatch detection e OSA calcolato per singola referenza. Multi-tenancy gestita con Row-Level Security perché il cliente finale ha store di insegne diverse.</p>
+          <p class="work__desc" data-lang="en">The system started shelf-centric: the shelf is empty, refill it. In large-scale retail this granularity is not enough. You need to know whether a product is sitting in another's space and whether the real position matches the planogram. I reworked the data model to product-shelf level, with per-GTIN/EAN allocations, mismatch detection, and OSA computed per single SKU. Multi-tenancy handled via Row-Level Security because the end client runs stores across different banners.</p>
         </div>
         <div class="work__tech">
           <div class="work__tech-label">STACK</div>
@@ -2229,8 +2288,8 @@ body.blueprint-mode .blueprint-indicator {
             <span data-lang="en">Clinical Data Platform — Gap analysis &amp; roadmap</span>
           </h3>
           <div class="work__role">SOLUTION ARCHITECT · ANALYSIS LEAD</div>
-          <p class="work__desc" data-lang="it">La piattaforma calcolava età biologica e capacità vitale, ma gli stessi valori comparivano in punti diversi con logiche divergenti e non si poteva ricostruire con certezza quale versione di calcolo avesse prodotto un referto. Ho prodotto un assessment completo che il cliente potesse leggere con il proprio board: 299 gg/uomo stimati, articolati in tre cantieri separati — refactor di stabilità, allineamento ai requisiti documentali, evolutive ML e cluster analysis. Ogni cantiere può partire senza bloccare gli altri.</p>
-          <p class="work__desc" data-lang="en">The platform computed biological age and vital capacity, but the same values appeared in different places with diverging logic, and you couldn't reliably reconstruct which calculation version had produced a report. I delivered a complete assessment the client could walk through with their board: 299 estimated person-days, partitioned into three independent work streams — stability refactor, alignment with documented requirements, ML feature evolutions, and cluster analysis. Each stream can start without blocking the others.</p>
+          <p class="work__desc" data-lang="it">La piattaforma calcolava età biologica e capacità vitale, ma gli stessi valori comparivano in punti diversi con logiche divergenti e non era possibile ricostruire con certezza quale versione del calcolo avesse prodotto un dato referto. Ho preparato un assessment che il cliente potesse portare in board: stima nell'ordine di 300 gg/uomo, articolati in tre cantieri indipendenti (refactor di stabilità, allineamento ai requisiti documentali, evolutive ML con cluster analysis). I tre cantieri possono partire in parallelo, senza dipendenze reciproche.</p>
+          <p class="work__desc" data-lang="en">The platform computed biological age and vital capacity, but the same values appeared in different places with diverging logic, and it wasn't possible to reliably trace which version of the calculation had produced a given report. I prepared an assessment the client could take to their board: an estimate around 300 person-days, split into three independent work streams (stability refactor, alignment with documented requirements, ML evolutions with cluster analysis). The three streams can run in parallel, with no mutual dependencies.</p>
         </div>
         <div class="work__tech">
           <div class="work__tech-label">
@@ -2261,8 +2320,8 @@ body.blueprint-mode .blueprint-indicator {
             <span data-lang="en">Enterprise SaaS Integration</span>
           </h3>
           <div class="work__role">SOLUTION ARCHITECT · INTEGRATION LEAD</div>
-          <p class="work__desc" data-lang="it">Adapter layer tra gestionale cliente e piattaforma e-learning enterprise. Matrice RACI su team cross-azienda, REST API con token security e permessi granulari, data seeding per allineamento utenze pregresse. Pattern di integrazione riutilizzabile su altri provider.</p>
-          <p class="work__desc" data-lang="en">Adapter layer between the client's business-management system and an enterprise e-learning platform. RACI matrix across cross-company teams, REST APIs with token security and granular permissions, data seeding for legacy-user alignment. Reusable integration pattern across providers.</p>
+          <p class="work__desc" data-lang="it">Adapter layer fra il gestionale del cliente e una piattaforma e-learning enterprise. Matrice RACI condivisa fra i team delle due aziende, REST API con token security e permessi granulari, data seeding per allineare le utenze pregresse. Il pattern di integrazione resta riutilizzabile su altri provider.</p>
+          <p class="work__desc" data-lang="en">Adapter layer between the client's management system and an enterprise e-learning platform. RACI matrix shared across the two companies' teams, REST APIs with token security and granular permissions, data seeding to align legacy users. The integration pattern stays reusable across other providers.</p>
         </div>
         <div class="work__tech">
           <div class="work__tech-label">
@@ -2278,38 +2337,6 @@ body.blueprint-mode .blueprint-indicator {
             <span data-lang="en">External system integration</span>
             <span data-lang="it">WBS unificata</span>
             <span data-lang="en">Unified WBS</span>
-          </div>
-        </div>
-      </article>
-
-      <article class="work">
-        <div class="work__idx">
-          <strong>A.05</strong>
-          2026 —
-        </div>
-        <div>
-          <h3 class="work__title">
-            <span data-lang="it">Linee Guida Operative per lo Sviluppo Software</span>
-            <span data-lang="en">Software Development Operating Guidelines</span>
-          </h3>
-          <div class="work__role">METHODOLOGY ARCHITECT · AI GOVERNANCE</div>
-          <p class="work__desc" data-lang="it">Formalizzazione dell'SDLC aziendale: matrice di responsabilità a quattro ruoli (Analisi, ML, Sistemi, Sviluppo), tre macro-workflow (Kanban → Scrum, Water-Scrum-Fall per legacy, Day-2 operations), governance esplicita degli agenti AI mappati alle fasi di sviluppo, Knowledge Management via RAG aziendale su tutti i Report di Esecuzione.</p>
-          <p class="work__desc" data-lang="en">Formalization of the company SDLC: four-role responsibility matrix (Analysis, ML, Systems, Development), three macro-workflows (Kanban → Scrum, Water-Scrum-Fall for legacy refactoring, Day-2 operations), explicit governance of AI agents mapped to development phases, Knowledge Management via corporate RAG over all Execution Reports.</p>
-        </div>
-        <div class="work__tech">
-          <div class="work__tech-label">
-            <span data-lang="it">AMBITO</span>
-            <span data-lang="en">SCOPE</span>
-          </div>
-          <div class="work__tech-list">
-            <span data-lang="it">Responsibility Matrix</span>
-            <span data-lang="en">Responsibility Matrix</span>
-            <span>SDLC</span>
-            <span>AI Governance</span>
-            <span data-lang="it">RAG aziendale</span>
-            <span data-lang="en">Corporate RAG</span>
-            <span>LlamaIndex</span><span>Pinecone</span>
-            <span>HLD / LLD</span>
           </div>
         </div>
       </article>
@@ -2340,25 +2367,25 @@ body.blueprint-mode .blueprint-indicator {
           <h3 class="job__title">Senior Software Engineer <em>·</em> Solution Architect</h3>
           <div class="job__role">TECH LEAD · ~10 ENGINEERS · METHODOLOGY · CLIENT-FACING</div>
           <ul class="job__bullets">
-            <li data-lang="it">Guida tecnica di ~10 sviluppatori, coordinamento con Project Management Team, Project Manager e clienti finali.</li>
-            <li data-lang="it">Autore delle Linee Guida Operative per lo Sviluppo Software aziendali: matrice di responsabilità a quattro ruoli, macro-workflow MVP → produzione, Water-Scrum-Fall per legacy, Day-2 operations, governance degli agenti AI nell'SDLC e Knowledge Management via RAG aziendale.</li>
-            <li data-lang="it">Nominato all'unanimità dall'esecutivo come Referente Analisi e di Area (RA) ad interim: ingegneria dei requisiti, conformità normativa, QA tecnica, gestione rischi e consegna finale su tutti i progetti attivi, in parallelo al ruolo primario di Referente Sviluppo Software (RD).</li>
-            <li data-lang="it">Assessment client-facing con risk register formale (Impatto × Probabilità × Mitigazione), stime con varianza esplicita e assunzioni documentate, WBS per tempo probabile articolata in cantieri separati (stabilità, conformità, evolutive), sintesi manageriali con impatto sul business.</li>
-            <li data-lang="it">Architettura software end-to-end su prodotti TRL 6–9: analisi dei requisiti, selezione stack, High-Level Design, Low-Level Design, progettazione algoritmica, report di sviluppo.</li>
-            <li data-lang="it">Progettazione di piattaforme IoT industriali event-driven con MQTT, correlazione multi-sensore su timestamp asincroni, triangolazione logaritmica, digital twin geometrico, anomaly detection statistica con baseline learning passivo.</li>
-            <li data-lang="it">Architettura e sviluppo di piattaforma smart city multi-modulo (air quality, sharing, parking, traffic monitoring) con MQTT cross-module, Docker Compose, PostgreSQL + TimescaleDB, Redis.</li>
-            <li data-lang="it">Consegna di feature AI-powered production-grade in prodotti cliente: sistemi RAG, agenti, chatbot domain-specific, copilot interni; prompt engineering per sviluppo, controllo e governance di AI.</li>
-            <li data-lang="it">R&amp;D in deep learning e computer vision: reti neurali per segmentazione di masse tumorali da scansioni CT e classificazione delle condizioni del manto stradale, con pipeline DICOM custom (PyTorch, TensorFlow).</li>
+            <li data-lang="it">Guida tecnica di una decina di sviluppatori, coordinamento con Project Management Team, Project Manager e clienti finali.</li>
+            <li data-lang="it">Autore delle Linee Guida Operative per lo Sviluppo Software aziendali: matrice di responsabilità a quattro ruoli, macro-workflow da MVP a produzione, Water-Scrum-Fall per la rifattorizzazione del legacy, Day-2 operations, governance degli agenti AI nell'SDLC e Knowledge Management via RAG aziendale.</li>
+            <li data-lang="it">Nominato all'unanimità dall'esecutivo come Referente Analisi e di Area (RA) ad interim durante il congedo del titolare: ingegneria dei requisiti, conformità normativa, QA tecnica, gestione rischi e consegna finale su tutti i progetti attivi, in parallelo al ruolo primario di Referente Sviluppo Software (RD).</li>
+            <li data-lang="it">Assessment per il cliente con risk register strutturato (Impatto × Probabilità × Mitigazione), stime con varianza esplicita e assunzioni documentate, WBS per tempo probabile articolata in cantieri separati (stabilità, conformità, evolutive), sintesi a uso manageriale.</li>
+            <li data-lang="it">Architettura software end-to-end su prodotti TRL 6-9: analisi dei requisiti, selezione dello stack, High-Level Design, Low-Level Design, progettazione algoritmica, report di sviluppo.</li>
+            <li data-lang="it">Progettazione di piattaforme IoT industriali event-driven in MQTT, con correlazione multi-sensore su timestamp asincroni, triangolazione logaritmica, digital twin geometrico, anomaly detection statistica e baseline learning passivo.</li>
+            <li data-lang="it">Architettura e sviluppo di una piattaforma smart city multi-modulo (qualità dell'aria, sharing, parking, traffic monitoring) con MQTT cross-module, Docker Compose, PostgreSQL e TimescaleDB, Redis.</li>
+            <li data-lang="it">Consegna di feature AI nei prodotti cliente: sistemi RAG, agenti, chatbot domain-specific, copilot interni. Prompt engineering per lo sviluppo e per la governance dell'AI.</li>
+            <li data-lang="it">R&amp;D in deep learning e computer vision: reti neurali per segmentazione di masse tumorali da scansioni CT e classificazione delle condizioni del manto stradale, con pipeline DICOM scritte da zero in PyTorch e TensorFlow.</li>
 
-            <li data-lang="en">Technical leadership of ~10 engineers; coordination with Project Management Team, Project Managers, and client stakeholders.</li>
-            <li data-lang="en">Author of the company's Software Development Operating Guidelines: four-role responsibility matrix, MVP → production macro-workflow, Water-Scrum-Fall for legacy refactoring, Day-2 operations, AI agent governance across the SDLC, and Knowledge Management via corporate RAG.</li>
-            <li data-lang="en">Unanimously appointed by the executive team as interim Analysis &amp; Area Lead (RA): requirements engineering, regulatory compliance, technical QA, risk management, and final delivery across all active projects, in parallel with the primary Software Development Lead (RD) role.</li>
-            <li data-lang="en">Client-facing assessments with formal risk register (Impact × Probability × Mitigation), estimates with explicit variance and documented assumptions, WBS by probable time partitioned into separate work streams (stability, compliance, evolutionary features), managerial synthesis with business impact.</li>
-            <li data-lang="en">End-to-end software architecture on TRL 6–9 products: requirements analysis, stack selection, High-Level Design, Low-Level Design, algorithm design, development reports.</li>
-            <li data-lang="en">Design of event-driven industrial IoT platforms with MQTT, multi-sensor asynchronous timestamp correlation, logarithmic triangulation, geometric digital twins, and statistical anomaly detection with passive baseline learning.</li>
-            <li data-lang="en">Architecture and development of a multi-module smart-city platform (air quality, sharing, parking, traffic monitoring) with cross-module MQTT, Docker Compose, PostgreSQL + TimescaleDB, Redis.</li>
-            <li data-lang="en">Delivery of production-grade AI-powered features in client products: RAG systems, agents, domain-specific chatbots, internal copilots; prompt engineering for development, control, and governance of AI.</li>
-            <li data-lang="en">R&amp;D in deep learning and computer vision: neural networks for tumor detection and segmentation from CT scans, and road surface condition classification, with custom DICOM pipelines (PyTorch, TensorFlow).</li>
+            <li data-lang="en">Technical leadership of about ten engineers; coordination with Project Management Team, Project Managers, and end clients.</li>
+            <li data-lang="en">Author of the company's Software Development Operating Guidelines: four-role responsibility matrix, MVP-to-production macro-workflow, Water-Scrum-Fall for legacy refactoring, Day-2 operations, governance of AI agents inside the SDLC, and Knowledge Management via corporate RAG.</li>
+            <li data-lang="en">Unanimously appointed by the executive team as interim Analysis &amp; Area Lead (RA) during the substantive holder's leave: requirements engineering, regulatory compliance, technical QA, risk management, and final delivery across all active projects, alongside the primary Software Development Lead (RD) role.</li>
+            <li data-lang="en">Client-facing assessments with structured risk register (Impact × Probability × Mitigation), estimates with explicit variance and documented assumptions, WBS by probable time partitioned into separate work streams (stability, compliance, evolutionary features), managerial-level synthesis.</li>
+            <li data-lang="en">End-to-end software architecture on TRL 6-9 products: requirements analysis, stack selection, High-Level Design, Low-Level Design, algorithm design, development reports.</li>
+            <li data-lang="en">Design of event-driven industrial IoT platforms over MQTT, with multi-sensor correlation on asynchronous timestamps, logarithmic triangulation, geometric digital twins, statistical anomaly detection and passive baseline learning.</li>
+            <li data-lang="en">Architecture and development of a multi-module smart-city platform (air quality, sharing, parking, traffic monitoring) with cross-module MQTT, Docker Compose, PostgreSQL and TimescaleDB, Redis.</li>
+            <li data-lang="en">Delivery of AI features inside client products: RAG systems, agents, domain-specific chatbots, internal copilots. Prompt engineering for development and for AI governance.</li>
+            <li data-lang="en">R&amp;D in deep learning and computer vision: neural networks for tumor detection and segmentation from CT scans, and road surface condition classification, with DICOM pipelines written from scratch in PyTorch and TensorFlow.</li>
           </ul>
         </div>
       </article>
@@ -2404,13 +2431,13 @@ body.blueprint-mode .blueprint-indicator {
       <div class="stack__row">
         <div class="stack__label">Backend</div>
         <div class="stack__tags">
-          <span class="tech">Node.js<sup>5+</sup></span>
+          <span class="tech">Node.js</span>
           <span class="tech">NestJS<sup>5+</sup></span>
           <span class="tech">TypeScript<sup>5+</sup></span>
           <span class="tech">Python<sup>10+</sup></span>
           <span class="tech">Django</span>
           <span class="tech">Celery</span>
-          <span class="tech">PHP<sup>10+</sup></span>
+          <span class="tech">PHP</span>
           <span class="tech">REST</span>
           <span class="tech">GraphQL</span>
           <span class="tech">SOAP</span>
@@ -2429,8 +2456,8 @@ body.blueprint-mode .blueprint-indicator {
           <span class="tech">React Native<sup>8+</sup></span>
           <span class="tech">iOS</span>
           <span class="tech">Android</span>
-          <span class="tech">HTML5<sup>15+</sup></span>
-          <span class="tech">CSS3<sup>15+</sup></span>
+          <span class="tech">HTML5</span>
+          <span class="tech">CSS3</span>
         </div>
       </div>
 
@@ -2439,10 +2466,10 @@ body.blueprint-mode .blueprint-indicator {
         <div class="stack__tags">
           <span class="tech">PostgreSQL</span>
           <span class="tech">TimescaleDB</span>
-          <span class="tech">MySQL<sup>15+</sup></span>
+          <span class="tech">MySQL</span>
           <span class="tech">Redis</span>
           <span class="tech">Firestore</span>
-          <span class="tech">SQL<sup>15+</sup></span>
+          <span class="tech">SQL</span>
           <span class="tech">SQLAlchemy</span>
         </div>
       </div>
@@ -2569,10 +2596,10 @@ body.blueprint-mode .blueprint-indicator {
       <span class="contact__num">§07 — CONTACT</span>
 
       <h2 class="contact__headline" data-lang="it">
-        Se hai un progetto serio,<br>parliamone.
+        Cerchi un profilo come questo?<br>Sentiamoci.
       </h2>
       <h2 class="contact__headline" data-lang="en">
-        If your project is serious,<br>let's talk.
+        Looking for this kind of profile?<br>Let's talk.
       </h2>
 
       <div class="contact__list">
@@ -2600,8 +2627,8 @@ body.blueprint-mode .blueprint-indicator {
             <span data-lang="it">Disponibilità</span>
             <span data-lang="en">Availability</span>
           </span>
-          <span class="contact__value" data-lang="it">Progetti selezionati</span>
-          <span class="contact__value" data-lang="en">Selected projects</span>
+          <span class="contact__value" data-lang="it">Aperto a nuove opportunità · full-time</span>
+          <span class="contact__value" data-lang="en">Open to new opportunities · full-time</span>
         </div>
         <div class="contact__row">
           <span class="contact__label">Shortcut</span>
@@ -2613,11 +2640,11 @@ body.blueprint-mode .blueprint-indicator {
       </div>
       <div class="contact__actions">
         <a class="contact__cta contact__cta--primary" href="mailto:pinniola@hotmail.it">
-          <span data-lang="it">Contact Me</span>
-          <span data-lang="en">Contact Me</span>
+          <span data-lang="it">Scrivimi</span>
+          <span data-lang="en">Email me</span>
         </a>
         <a class="contact__cta" href="mailto:pinniola@hotmail.it?subject=Richiesta%20call%20intro%20/%20Intro%20call%20request">
-          <span data-lang="it">Book a call</span>
+          <span data-lang="it">Prenota una call</span>
           <span data-lang="en">Book a call</span>
         </a>
       </div>
@@ -2638,12 +2665,12 @@ body.blueprint-mode .blueprint-indicator {
 <!-- Mobile quick conversion bar -->
 <div class="mobile-quick-cta">
   <a href="mailto:pinniola@hotmail.it?subject=Richiesta%20call%20intro%20/%20Intro%20call%20request">
-    <span data-lang="it">Book a call</span>
+    <span data-lang="it">Prenota una call</span>
     <span data-lang="en">Book a call</span>
   </a>
   <a class="primary" href="mailto:pinniola@hotmail.it">
-    <span data-lang="it">Contact Me</span>
-    <span data-lang="en">Contact Me</span>
+    <span data-lang="it">Scrivimi</span>
+    <span data-lang="en">Email me</span>
   </a>
 </div>
 
@@ -2677,15 +2704,15 @@ body.blueprint-mode .blueprint-indicator {
     body:  'color:#F0E6CD;font-family:monospace;font-size:12px;line-height:1.6;',
     accent:'color:#7AA9C5;font-family:monospace;font-size:11px;',
   };
-  console.log('%cWelcome, fellow engineer.', styles.title);
+  console.log('%cCiao.', styles.title);
   console.log(
-    '%cIf you\'re reading this, you\'ve earned an easter egg.\n\n' +
-    '• Press ⌘K (or Ctrl+K) anywhere on the page to open the command palette.\n' +
-    '• Try the Konami code: ↑ ↑ ↓ ↓ ← → ← → B A\n' +
-    '• Hover the four layers of the hero diagram for details.\n\n' +
-    'Built with care. Fonts: Fraunces, Newsreader, JetBrains Mono.\n' +
-    'Architecture: a single static HTML file, deployed on Cloudflare Pages.\n' +
-    'If you want to talk: pinniola@hotmail.it\n',
+    '%cSe stai leggendo qui, tieni qualche dettaglio in più:\n\n' +
+    '• ⌘K (o Ctrl+K) ovunque nella pagina apre la command palette.\n' +
+    '• Konami code: ↑ ↑ ↓ ↓ ← → ← → B A.\n' +
+    '• I quattro layer del diagramma del hero hanno dettagli sull\'hover.\n\n' +
+    'Font: Fraunces, Newsreader, JetBrains Mono.\n' +
+    'Struttura: un singolo HTML statico, su Cloudflare Pages.\n' +
+    'Per parlare: pinniola@hotmail.it\n',
     styles.body
   );
   console.log('%c— F. Perniola · Senior SWE · Solution Architect · AI Engineer', styles.accent);
