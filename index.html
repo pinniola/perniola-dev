@@ -2613,8 +2613,8 @@ body.blueprint-mode .blueprint-indicator {
         </div>
         <div class="contact__row">
           <span class="contact__label">CV</span>
-          <a class="contact__value" data-lang="it" href="Francesco_Perniola_CV_IT.pdf" download>Scarica PDF · Italiano</a>
-          <a class="contact__value" data-lang="en" href="Francesco_Perniola_CV_EN.pdf" download>Download PDF · English</a>
+          <a class="contact__value" data-lang="it" href="Francesco_Perniola_CV_IT.pdf" download="Francesco_Perniola_CV_IT.pdf" target="_blank" rel="noopener noreferrer">Scarica PDF · Italiano</a>
+          <a class="contact__value" data-lang="en" href="Francesco_Perniola_CV_EN.pdf" download="Francesco_Perniola_CV_EN.pdf" target="_blank" rel="noopener noreferrer">Download PDF · English</a>
         </div>
         <div class="contact__row" id="githubRow" hidden>
           <span class="contact__label">GitHub</span>
@@ -2929,8 +2929,8 @@ langBtns.forEach(b => b.addEventListener('click', () => setLang(b.dataset.langBt
     { group: { it: 'Azioni', en: 'Actions' }, icon: '✉', label: { it: 'Copia email', en: 'Copy email' }, action: () => copy('pinniola@hotmail.it', { it: 'Email copiata', en: 'Email copied' }) },
     { group: { it: 'Azioni', en: 'Actions' }, icon: '↪', label: { it: 'Apri email', en: 'Compose email' }, action: () => { window.location.href = 'mailto:pinniola@hotmail.it'; } },
     { group: { it: 'Azioni', en: 'Actions' }, icon: '⚑', label: { it: 'Copia link del sito', en: 'Copy site URL' }, action: () => copy(window.location.href, { it: 'Link copiato', en: 'Link copied' }) },
-    { group: { it: 'Azioni', en: 'Actions' }, icon: '↓', label: { it: 'Scarica CV (Italiano)', en: 'Download CV (Italian)' }, action: () => { window.location.href = 'Francesco_Perniola_CV_IT.pdf'; } },
-    { group: { it: 'Azioni', en: 'Actions' }, icon: '↓', label: { it: 'Scarica CV (Inglese)', en: 'Download CV (English)' }, action: () => { window.location.href = 'Francesco_Perniola_CV_EN.pdf'; } },
+    { group: { it: 'Azioni', en: 'Actions' }, icon: '↓', label: { it: 'Scarica CV (Italiano)', en: 'Download CV (Italian)' }, action: () => downloadFile('Francesco_Perniola_CV_IT.pdf') },
+    { group: { it: 'Azioni', en: 'Actions' }, icon: '↓', label: { it: 'Scarica CV (Inglese)', en: 'Download CV (English)' }, action: () => downloadFile('Francesco_Perniola_CV_EN.pdf') },
     // Theme
     { group: { it: 'Impostazioni', en: 'Settings' }, icon: '⚐', label: { it: 'Cambia lingua (IT ↔ EN)', en: 'Toggle language (IT ↔ EN)' }, action: () => setLang(document.documentElement.getAttribute('data-lang') === 'it' ? 'en' : 'it') },
     { group: { it: 'Impostazioni', en: 'Settings' }, icon: '▦', label: { it: 'Blueprint Mode (on/off)', en: 'Blueprint Mode (on/off)' }, action: () => document.body.classList.toggle('blueprint-mode') },
@@ -3032,6 +3032,17 @@ langBtns.forEach(b => b.addEventListener('click', () => setLang(b.dataset.langBt
       await navigator.clipboard.writeText(text);
       showToast(label[document.documentElement.getAttribute('data-lang') || 'it']);
     } catch (e) { showToast('Copy failed'); }
+  }
+
+  function downloadFile(path) {
+    const a = document.createElement('a');
+    a.href = path;
+    a.download = path.split('/').pop();
+    a.rel = 'noopener noreferrer';
+    a.target = '_blank';
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
   }
 
   // Re-render on language change so labels update if palette is open
