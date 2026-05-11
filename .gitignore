@@ -11,6 +11,10 @@ CV_Perniola_Francesco_*
 build_cv*.js
 cv_blueprint*.html
 
+# Public CVs (sanitized — no phone, no address, no direct email) MUST be tracked
+!Francesco_Perniola_CV_IT.pdf
+!Francesco_Perniola_CV_EN.pdf
+
 # Build artifacts
 node_modules/
 *.log
